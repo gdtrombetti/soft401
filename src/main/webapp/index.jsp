@@ -4,5 +4,8 @@
 <a href="#" class="btn btn-white">
                                 Our Works
                             </a>
+                            <a href="#" class="btn btn-white">
+                                Next
+                            </a>
 </body>
 
