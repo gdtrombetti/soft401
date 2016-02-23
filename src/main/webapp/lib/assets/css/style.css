@@ -228,7 +228,16 @@ html {
 .nav-tabs {
 	margin-right: 2px;
 }
+.css-form input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+    color: #FFF
+}
 
+.css-form input.ng-valid.ng-touched {
+    background-color: #78FA89;
+    color: #FFF
+}
+</style>
 .nav-tabs>li>a {
     border-radius: 0px;
     margin: 0px;
