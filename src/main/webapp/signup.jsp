@@ -1,4 +1,7 @@
 <%@ include file="header.html" %>
+<script src="lib/assets/js/controllers/user-controller.js"></script>
+<div data-ng-app="MyApp">
+<div data-ng-controller="UserController">
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-sm-6">
@@ -31,29 +34,31 @@
   	<div class="col-md-6 col-sm-6">
   		<div class="basic_form">
                  <div class="row">
-                     <div class="col-md-6">
-                     
-						<form method="post" data-ng-controller="UserController" class="user_form">
+						<form name="user" novalidate role="form" class="css-form">
+	                     <div class="col-md-6">
 	                        <div class="form-group">
-	                             <input name="name" data-ng-model="name" type="text" class="form-control" id="name" required="required" placeholder="Full Name">
+	                             <input type="text"  data-ng-model="user.name" class="form-control" placeholder="Name" id="name" required>
 	                         </div>
 	
 	                         <div class="form-group">
-	                             <input name="email" data-ng-model="email" type="email" class="form-control" id="email" required="required" placeholder="Email Address">
+	                             <input type="email"  data-ng-model="user.email" class="form-control" placeholder="Email Address" id="email" required>
 	                         </div>
+	                         
 	                         <div class="form-group">
-								<input type="password" data-ng-model="password" class="form-control" placeholder="Password" id="password" required>
+								<input type="password" data-ng-model="user.password" class="form-control" placeholder="Password" id="password" required>
 							</div>
+							
 							<div class="form-group">
-	        					<input type="password" data-ng-model="conform_password" class="form-control" placeholder="Confirm Password" id="confirm_password" required>
+	        					<input type="password" data-ng-model="confirm_password" class="form-control" placeholder="Confirm Password" id="confirm_password" required>
 	        				</div>
 	                     </div>
 	                     <div class="col-md-6">
 	                         <div class="form-group">
-	                             <input name="affiliation" type="url" data-ng-model="affiliation" class="form-control" id="subject" required="required" placeholder="School/Company">
+	                             <input type="text" data-ng-model="user.affiliation" class="form-control" placeholder="School/Company" id="subject" required>
 	                         </div>
+	                         
 	                         <div class="form-group">
-	                      		<select name="fav-subject" class="form-control" id="fav-subjec">
+	                      		<select data-ng-model="user.favorite_subject" class="form-control" id="favorite_subject" required>
 									<option value="" disabled selected>Favorite Subject</option>
 									<option>Math</option>
 									<option>Computer Science</option>
@@ -62,13 +67,13 @@
 									<option>Art</option>
 								</select>
 	 					 	</div>
-	 					 <button type="submit" id="submit" name="submit" class="btn btn-black">SIGN UP!</button>
+	 					 	<input type="hidden" name="type" data-ng-init="type=1;" data-ng-value="type"/>
+	 					 	<button data-ng-click="AddUser(user)"  class="btn btn-black">Submit</button>
 	                   </div> 
                		 </form>
                		</div>
                 </div>
   			</div>
-  		</div>
   	<div class="col-md-6 col-sm-6">
   		<div class="admin_form">
                  <div class="row">
@@ -104,11 +109,12 @@
 	 					 	</div>
 	 					 <button type="submit" id="submit" name="submit" class="btn btn-black">SIGN UP!</button>
 	                   </div> 
-	             
                		 </form>
                 </div>
   			</div>
   		</div>
   	</div>
+  </div>
+ </div>
   <script type="text/javascript" src="lib/assets/js/script.js"></script>
 <%@ include file="footer.html" %>
