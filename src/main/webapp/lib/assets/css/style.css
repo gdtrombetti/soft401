@@ -1587,6 +1587,14 @@ only screen and (max-device-width : 550px){
 	background-color: #656566;
 	color: #969595;
 }
+.portal-container {
+	padding: 20px;
+	margin: 10px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	background-color: #656566;
+	color: #969595; 
+}
 .btn-clipboard {
 	position:absolute;
 	top:0;
