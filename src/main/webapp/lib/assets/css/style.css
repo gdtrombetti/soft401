@@ -224,7 +224,13 @@ html {
 .navbar .navbar-toggle .icon-bar {
 	background-color: #B9B9B9;
 }
+.sign-in-fail-message {
 
+	font-weight: inherit;
+	line-height: 1.2;
+	margin-top: 5;
+	font-size: 14px ;
+}
 .nav-tabs {
 	margin-right: 2px;
 }
@@ -237,7 +243,7 @@ html {
     background-color: #78FA89;
     color: #FFF
 }
-</style>
+
 .nav-tabs>li>a {
     border-radius: 0px;
     margin: 0px;

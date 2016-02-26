@@ -10,8 +10,21 @@
   	<description></description>
   	<servlet-class>servlets.AddUserServlet</servlet-class>
   </servlet>
+  
+  <servlet>
+  	<servlet-name>SignInUserServlet</servlet-name>
+  	<display-name>SignInUserServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.SignInUserServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
   	<servlet-name>AddUserServlet</servlet-name>
   	<url-pattern>/AddUserServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>SignInUserServlet</servlet-name>
+  	<url-pattern>/SignInUserServlet</url-pattern>
   </servlet-mapping></web-app>
 

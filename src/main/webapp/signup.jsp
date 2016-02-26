@@ -39,7 +39,7 @@
 	                        <div class="form-group">
 	                             <input type="text"  data-ng-model="user.name" class="form-control" placeholder="Name" id="name" required>
 	                         </div>
-	
+								
 	                         <div class="form-group">
 	                             <input type="email"  data-ng-model="user.email" class="form-control" placeholder="Email Address" id="email" required>
 	                         </div>

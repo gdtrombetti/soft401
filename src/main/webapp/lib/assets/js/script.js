@@ -52,7 +52,10 @@ function validatePassword(){
 
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
-
+function getUrl() {
+	var pathname = window.location.pathname; 
+	console.log(pathname);
+}
 $(document).ready(function () {
     $("#loadGallery").click(function(event) {
         
