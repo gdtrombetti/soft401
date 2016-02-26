@@ -1,4 +1,5 @@
-<%@ include file="portal-header.html" %>
+<%@ include file="portal-header.jsp" %>
+
 <div class ="row">
 	<div class="col-md-3">
 		<%@ include file="portal-left-sidebar.jsp" %>
@@ -29,9 +30,6 @@
 				</div>
 			</div>
 	
-	
-	
-	
 </div>
 		<div class="col-md-3">
 			<%@ include file="portal-right-sidebar.jsp" %>
@@ -47,7 +45,6 @@
 		
 	</div>
 </div>
-
 		
 </div>
 

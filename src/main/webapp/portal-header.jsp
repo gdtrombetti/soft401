@@ -41,7 +41,9 @@
                                 <a href="portal-index.jsp"><span>home</span></a>
                             </li>
                               <li>
-                                <a><span> Hello User, Welcome to your platform </span></a>
+                             <%@ taglib prefix="c" 
+           						uri="http://java.sun.com/jsp/jstl/core" %>
+                              <a><span>Hello: <c:out value='${sessionScope["full_name"]}'/> </span></a>
                             </li>
                             <li>
                                 <a href="sign-out.jsp"><span>Sign Out</span></a>
