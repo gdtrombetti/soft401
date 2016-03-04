@@ -16,6 +16,26 @@
   	<display-name>SignInUserServlet</display-name>
   	<description></description>
   	<servlet-class>servlets.SignInUserServlet</servlet-class>
+  	<init-param>
+            <param-name>
+                go
+            </param-name>
+            <param-value>
+                portal-basic.jsp
+            </param-value>
+        </init-param>
+  </servlet>
+  <servlet>
+  	<servlet-name>SignOutUserServlet</servlet-name>
+  	<display-name>SignOutUserServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.SignOutUserServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddEventServlet</servlet-name>
+  	<display-name>AddEventServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.AddEventServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -26,5 +46,13 @@
   <servlet-mapping>
   	<servlet-name>SignInUserServlet</servlet-name>
   	<url-pattern>/SignInUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SignOutUserServlet</servlet-name>
+  	<url-pattern>/SignOutUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddEventServlet</servlet-name>
+  	<url-pattern>/AddEventServlet</url-pattern>
   </servlet-mapping></web-app>
 

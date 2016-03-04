@@ -93,8 +93,7 @@ public class DBconn {
 		try {
 			stmt = conn.prepareStatement(findUser);
 			stmt.setString(1, email);
-			rset = stmt.executeQuery();			
-			System.out.print(rset);
+			rset = stmt.executeQuery();
 			if (rset != null) {
 				ResultSetMetaData rsmd = rset.getMetaData();
 				int numColumns = rsmd.getColumnCount();

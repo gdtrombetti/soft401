@@ -1,3 +1,8 @@
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+   %>
 <%@ include file="portal-header.jsp" %>
 <div class ="row">
 	<div class="col-md-3">

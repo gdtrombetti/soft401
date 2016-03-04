@@ -238,12 +238,13 @@ html {
     background-color: #FA787E;
     color: #FFF
 }
-
 .css-form input.ng-valid.ng-touched {
     background-color: #78FA89;
     color: #FFF
 }
-
+.sign-in-fail-message {
+	font-size: 2.887em;
+}
 .nav-tabs>li>a {
     border-radius: 0px;
     margin: 0px;
