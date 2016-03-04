@@ -3,6 +3,9 @@ package servlets;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import database.DBconn;
 
 /**
  * Servlet implementation class AddUserServlet
@@ -30,6 +35,11 @@ public class AddUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		 StringBuffer sb = new StringBuffer();
+		 DBconn dbconn = new DBconn();
+		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date dt = new Date();
+		 String date = dateFormat.format(dt);
+		System.out.print("hey");
 		    try 
 		    {
 		      BufferedReader reader = request.getReader();
@@ -54,6 +64,7 @@ public class AddUserServlet extends HttpServlet {
 		    String favorite_subject= (String) joUser.get("favorite_subject");
 		    Long type = (Long) joUser.get("type");
 		    System.out.print(joUser);
+		    dbconn.addUser(name, email, password, affiliation, favorite_subject, type, date);
 		    response.setContentType("text/html");
 		    PrintWriter out = response.getWriter();
 		    

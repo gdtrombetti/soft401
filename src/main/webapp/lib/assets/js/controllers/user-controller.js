@@ -1,7 +1,11 @@
 var app = angular.module('MyApp', []);
 app.controller('UserController', function ($scope, $http, $window, $location) {
 $scope.AddUser = function(user) {
-	
+	if(!user.$valid) {
+		return;
+	}
+	console.log("controller");
+
     var dataObj = {
 		name : user.name,
 		email : user.email,
