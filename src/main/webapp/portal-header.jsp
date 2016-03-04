@@ -1,3 +1,5 @@
+<!DOCTYPE meta PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
 <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +15,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script type="text/javascript" src="lib/assets/js/modernizr.custom.97074.js"></script>
-	<div id="home-page">
+
+
+	<div id="home-page-portal">
 	<nav id="mainNavigation" class="navbar navbar-dafault main-navigation" role="navigation">
                 <div class="container">
                     
@@ -40,20 +44,23 @@
                             <li>
                                 <a href="portal-index.jsp"><span>home</span></a>
                             </li>
-                              <li>
+                             
                              <%@ taglib prefix="c" 
            						uri="http://java.sun.com/jsp/jstl/core" %>
-                              <a><span>Hello: <c:out value='${sessionScope["full_name"]}'/> </span></a>
+                              <li><a><% User currentUser = (User)(session.getAttribute("currentSessionUser"));%>
+                               Welcome <%= currentUser.getFull_name() %></a>
                             </li>
                             <li>
-                                <a href="sign-out.jsp"><span>Sign Out</span></a>
-                            </li>
-                            
+                            	
+                                	<a href="SignOutUserServlet">Sign Out</a>
+                                
+                            </li>  
                         </ul>
                     </div><!-- nav links -->
-                    
                 </div><!-- /.container -->
             </nav>
            </div>
-        </head>
-        <body>
+      	</div>
+ 
+      </head>
+    <body>

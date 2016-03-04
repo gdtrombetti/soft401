@@ -17,7 +17,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.google.gson.Gson;
-
+import UserData.User;
 import database.DBconn;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +46,7 @@ public class SignInUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		User userClass = new User();
 		PrintWriter out = response.getWriter();
 		StringBuffer sb = new StringBuffer();
 	    try 
@@ -68,46 +69,47 @@ public class SignInUserServlet extends HttpServlet {
 	    String email = (String) joUser.get("email");
 
 	    inDatabase = dbconn.findUserByEmail(email);
+
 	    if (inDatabase) {
 	    	HttpSession session = request.getSession(true);
 	    	ArrayList<String> userValues = dbconn.getUser(email);
-	    	
-			System.out.print(userValues);	
-	    	if (userValues.isEmpty()) {
-				System.out.print("no values");	
-	    		String noUserString = "Invalid Credentials";
-					out.print(noUserString);
-				    out.flush();
-				    out.close();
-				} else {
-				  response.setContentType("application/json");
-				  user = userValues.get(0);
-				  System.out.print(user);
-				  try {
+				try {
+					user = userValues.get(0);
 					user = parser.parse(user.toString());
-					full_name = (String) ((HashMap) user).get("full_name");
-					id = (String) ((HashMap) user).get("id");
-					type = (String) ((HashMap) user).get("type");
-					session.setAttribute("full_name", full_name);
-					session.setAttribute("id", id);
-					session.setAttribute("type", type);
+				
+				full_name = (String) ((HashMap) user).get("full_name");
+				id = (String) ((HashMap) user).get("user_id");
+				type = (String) ((HashMap) user).get("type");
+				
+				
+				
+				userClass.setFull_name(full_name);
+				userClass.setId((String) ((HashMap) user).get("user_id"));
+				userClass.setAffiliation((String) ((HashMap) user).get("affiliation"));
+				userClass.setFavorite_topic((String) ((HashMap) user).get("favorite_topic"));
+				userClass.setType((String) ((HashMap) user).get("type"));
+				userClass.setIsValid(true);
+				
+				
+				if (userClass.isValid())
+			     {   
 					session.setAttribute("signed-in", true);
-					out.print(user);
+					session.setAttribute("currentSessionUser",userClass); 
 					
-				    out.flush();
-				    out.close();
-					
+			        if (userClass.getType().equals("1")) {
+			        	out.print("basic");
+			        } else if (userClass.getType().equals("2")){
+			        	out.print("admin");
+			          }
+			     } 			
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				    out.flush();
-				    out.close();
-				}
+			// TODO Auto-generated catch block
+	    	out.println("Failed User Retreival");
+			e.printStackTrace();
+		}
 	    } else {
 	    	out.print(false);
 	    }
 	}
-
 }
 	
