@@ -1,3 +1,16 @@
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+   %>
+   <% 
+    response.setHeader("Cache-Control","no-store,must-revalidate"); 
+    response.setHeader("Pragma","no-cache"); 
+    response.setDateHeader ("Expires", -1); 
+    new java.util.Date();
+    if(session.getAttribute("currentSessionUser") != null)
+    {
+   %>
 <%@ include file="portal-header.jsp" %>
 
 <div class ="row">
@@ -47,4 +60,6 @@
 </div>
 		
 </div>
-
+<%}
+else
+	response.sendRedirect("index.jsp");%>
