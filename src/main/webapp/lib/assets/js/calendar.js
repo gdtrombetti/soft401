@@ -1,12 +1,15 @@
 
-var Calendar = function(o) {
+var Calendar = function(o) {	
+ 
   this.divId = o.ParentID;
+  this.user_id = o.user_id;
   this.DaysOfWeek = o.DaysOfWeek;
   this.Months = o.Months;
   var d = new Date();
+  this.events = getEvents(o.user_id);
   this.CurrentMonth = d.getMonth();
   this.CurrentYear = d.getFullYear();
-  var f=o.Format;
+  var f = o.Format;
   //this.f = typeof(f) == 'string' ? f.charAt(0).toUpperCase() : 'M';
   if(typeof(f) == 'string') {
     this.f  = f.charAt(0).toUpperCase();
@@ -15,6 +18,19 @@ var Calendar = function(o) {
   }
 };
 
+function getEvents (user_id){
+	var events;
+	$.ajax({
+		type: "GET",
+		url: "GetEventServlet",
+		async: false,
+		data: { user_id: user_id },
+		success : function ( data ) {
+			events = data;
+		}
+	});
+	return events;
+};
 // Goes to next month
 Calendar.prototype.nextMonth = function() {
   if ( this.CurrentMonth == 11 ) {
@@ -56,7 +72,9 @@ Calendar.prototype.showCurrent = function() {
 
 // Show month (year, month)
 Calendar.prototype.Calendar = function(y,m) {
- 
+  events = this.events;
+  var event;
+
   typeof(y) == 'number' ? this.CurrentYear = y : null;
   typeof(y) == 'number' ? this.CurrentMonth = m : null;
   // 1st day of the selected month
@@ -65,9 +83,9 @@ Calendar.prototype.Calendar = function(y,m) {
   var lastDateOfCurrentMonth = new Date(y, m+1, 0).getDate();
   // Last day of the previous month
   var lastDateOfLastMonth = m == 0 ? new Date(y-1, 11, 0).getDate() : new Date(y, m, 0).getDate();
-  var monthandyearhtml = '<span id="monthandyearspan">' + this.Months[m] + ' - ' + y + '</span>';
-  var html = '<table>';
-
+  var monthandyearhtml = '<span id="month">' + this.Months[m] + '</span> - ' + '<span id="year">' + y + '</span>';
+  var html = '<table data-ng-controller="CalendarController">';
+  
   // Write the header of the days of the week
   html += '<tr>';
   for(var i=0; i < 7;i++) {
@@ -89,25 +107,58 @@ Calendar.prototype.Calendar = function(y,m) {
       firstDayOfCurrentMonth == 2;
     }
   }*/
-  var cellvalue;
-  for (var d, i=0, z0=0; z0<6; z0++) {
-    html += '<tr>';
-    for (var z0a = 0; z0a < 7; z0a++) {
-      d = i + dm - firstDayOfCurrentMonth;
-      // Dates from prev month
-      if (d < 1){
-    	cellvalue = lastDateOfLastMonth - firstDayOfCurrentMonth + p++;
-        html += '<td id="prevmonthdates">' + 
-              '<span id="cellvaluespan">' + (cellvalue) + '</span><br/>' + 
-              '<ul id="cellvaluelist"><li>apples</li><li>bananas</li><li>pineapples</li></ul>' + 
-            '</td>';
-      // Dates from next month
-      } else if ( d > lastDateOfCurrentMonth){
-        html += '<td id="nextmonthdates">' + (p++) + '</td>';
-      } else {
-        html += '<td id="currentmonthdates" onClick="show_event(\'' + d + '\')">' + (d) + '</td>'; 
-        p = 1;
-      }
+  var cellvalue; 
+	    for (var d, i=0, z0=0; z0<6; z0++) {
+	    	html += '<tr>';
+	    	
+	    	for (var z0a = 0; z0a < 7; z0a++) {
+	    		d = i + dm - firstDayOfCurrentMonth;
+	    		// Dates from prev month
+	    		
+	    		if (d < 1){
+	    			
+	    			cellvalue = lastDateOfLastMonth - firstDayOfCurrentMonth + p++;
+	    			html += '<td id="prevmonthdates">' + 
+	    			'<span id="cellvaluespan">' + (cellvalue) + '</span><br/>' + 
+	    			'<ul id="cellvaluelist"><li>apples</li><li>bananas</li><li>pineapples</li></ul>' + 
+	    			'</td>';
+	    			 
+	    
+     
+	    		} else if ( d > lastDateOfCurrentMonth){
+	    			
+	    			html += '<td id="nextmonthdates">' + (p++) + '</td>';
+      
+	    		} else {
+	    		
+	    			for (var x = 0; x < events.length; x++) {
+    				    event = events[x];
+    				    month = event.event_date.substring(0,4);
+    				    day = event.event_date.substring(4,6);
+    				    year = event.event_date.substring(8,12);
+    					
+    				    if (d == day) {
+	    					
+	    					console.log(d + " === " + day)
+	    					console.log(event.event_title);
+	    					cellvalue = event.event_title;
+	    					html +='<td>' + 
+	    					'<span id="cellvaluespan">' + (d) + '</span><br/>' + 
+	    					'<ul id="cellvaluelist"><li>' + (cellvalue) + '</li><li>bananas</li><li>pineapples</li></ul>' + 
+	    					'</td>';
+	    					break;
+	    					
+	    				} else {
+	    					
+	    					html += '<td id="currentmonthdates" onClick="show_event(\'' + d + '\')">' + (d) + '</td>';
+	    					p = 1;
+	    					
+	    				}
+	   
+	    			}
+	    			 			
+	    		}
+	    		
       if (i % 7 == 6 && d >= lastDateOfCurrentMonth) {
         z0 = 10; // no more rows
       }
@@ -117,7 +168,7 @@ Calendar.prototype.Calendar = function(y,m) {
   }
   // Closes table
   html += '</table>';
-
+  html +='</div>'
   // Write HTML to the div
   //document.getElementById("year").innerHTML = yearhtml;
 
@@ -132,7 +183,7 @@ window.onload = function() {
   // Start calendar
   var c = new Calendar({
     ParentID:"divcalendartable",
-
+    user_id : document.getElementById('userId').value,
     DaysOfWeek:[
     'MON',
     'TUE',
@@ -167,12 +218,17 @@ window.onload = function() {
 	  c.nextYear();
   };
 }
+
+
 function show_event (d) {
   var lightbox = document.getElementById("calendarEvent");
-  var monthandyear = $("#monthandyearspan").text();
-  var day = $("#currentmonthdates").text();
-  console.log(d);
-  console.log(monthandyear);
+  var month = $("#month").text();
+  var year = $("#year").text();
+  var scope = angular.element(document.getElementById("currentmonthdates")).scope();
+  console.log(scope.$$childHead);
+  scope.$apply(function () {
+	    scope.$$childHead.getDateData(d, month, year);
+});
   dimmer = document.createElement("div");
   dimmer.style.width =  window.innerWidth + 'px';
   dimmer.style.height = window.innerHeight + 'px';
@@ -186,7 +242,6 @@ function show_event (d) {
   lightbox.style.top = window.innerHeight/2 - 50 + 'px';
   lightbox.style.left = window.innerWidth/2 - 100 + 'px';
   document.getElementById('calendarEvent').style.visibility = "visible";
-  
 return false;
 }
 

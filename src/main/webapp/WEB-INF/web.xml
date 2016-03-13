@@ -37,6 +37,12 @@
   	<description></description>
   	<servlet-class>servlets.AddEventServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>GetEventServlet</servlet-name>
+  	<display-name>GetEventServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.GetEventServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>AddUserServlet</servlet-name>
@@ -54,5 +60,9 @@
   <servlet-mapping>
   	<servlet-name>AddEventServlet</servlet-name>
   	<url-pattern>/AddEventServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GetEventServlet</servlet-name>
+  	<url-pattern>/GetEventServlet</url-pattern>
   </servlet-mapping></web-app>
 

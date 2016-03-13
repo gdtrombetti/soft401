@@ -16,7 +16,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script type="text/javascript" src="lib/assets/js/modernizr.custom.97074.js"></script>
 
-
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+%>
 	<div id="home-page-portal">
 	<nav id="mainNavigation" class="navbar navbar-dafault main-navigation" role="navigation">
                 <div class="container">

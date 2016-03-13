@@ -7,7 +7,11 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
@@ -124,5 +128,44 @@ public class DBconn {
 		}
 		return null;
 		}
-	
+	@SuppressWarnings("unchecked")
+	public JSONArray getEvents(String userId) {
+		JSONArray jsonArray = new JSONArray();
+		ResultSet rset = null;
+		String findUser = "SELECT * FROM events WHERE user_id = ?";
+		java.sql.PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(findUser);
+			stmt.setString(1, userId);
+			rset = stmt.executeQuery();
+			if (rset != null) {
+				ResultSetMetaData rsmd = rset.getMetaData();
+				int numColumns = rsmd.getColumnCount();
+				while (rset.next()) {
+					JSONObject obj = new JSONObject();
+					for(int i = 1; i < numColumns + 1; i++){
+						String col_name = rsmd.getColumnName(i);
+						Object columnValue = rset.getObject(i);
+		                obj.put(col_name, columnValue);
+					}
+			        jsonArray.add(obj);
+				}
+				stmt.close();
+				conn.commit();
+				return jsonArray;
+			} else {
+				stmt.close();
+				conn.commit();
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return null;
+		}
 	}

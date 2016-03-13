@@ -1,6 +1,4 @@
-///////////////////////////////
-// Fix the Home Height
-///////////////////////////////
+
 $(function() {
     var setHomeBannerHeight = function(){
         var homeHeight= $(window).height();
@@ -10,10 +8,6 @@ $(function() {
     setHomeBannerHeight();
 });
 
-
-/*=================================================================
-            Load more
-===================================================================*/
 
 $(document).ready(function () {
     $("#loadPortfolio").click(function(event) {
@@ -39,6 +33,24 @@ $(document).ready(function () {
 		$(".basic_form").css("visibility","hidden");
 	});
 });
+$(document).ready(function() {
+	
+$('fav').click(function(user_id, link, title){
+		$.ajax({
+			url: "AddFavoriteServlet",
+			type: "POST",
+			dataType: 'json',
+			data:{"user_id" : user_id,
+				  "link" : link,
+				  "title": title
+				 },
+			success: function(data){
+				console.log(data);
+				$( this ).switchClass("fa fa-star", "fa fa-star-o");		
+			}
+		});
+	});
+});
 
 var password = document.getElementById("password");
 confirm_password = document.getElementById("confirm_password");
@@ -50,7 +62,6 @@ function validatePassword(){
 		confirm_password.setCustomValidity('');
 	}
 }
-
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 
