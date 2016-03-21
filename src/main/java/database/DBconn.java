@@ -2,10 +2,12 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class DBconn {
 
 	try {
 		conn= DriverManager
-		.getConnection("jdbc:mysql://127.0.0.1:3306/soft401","root", "");
+		.getConnection("jdbc:mysql://127.0.0.1:3306/westudy","root", "");
 		conn.setAutoCommit(false); 
 
 	} catch (SQLException e) {
@@ -128,6 +130,7 @@ public class DBconn {
 		}
 		return null;
 		}
+
 	@SuppressWarnings("unchecked")
 	public JSONArray getEvents(String userId) {
 		JSONArray jsonArray = new JSONArray();
@@ -214,5 +217,43 @@ public class DBconn {
 						catch(SQLException ex){}
 					}
 			}
+
+
+	public void addUser(String name, String email, String password, String affiliation, String favorite_subject,
+			Long type, String date) {
+		
+		 PreparedStatement stmt = null;
+         String sql;
+         
+         
+		   if (!isopen) return;
+
+	          try {
+	        
+	              sql = "INSERT INTO users(full_name, email, password, affiliation, favorite_topic, type, signup_date) VALUES "
+	                  + "(?, ?, ?, ?, ?, ?, ?)";
+	              stmt = conn.prepareStatement(sql);
+	              stmt.setString(1, name);
+	              stmt.setString(2, email);
+	              stmt.setString(3, password);
+	              stmt.setString(4, affiliation);
+	              stmt.setString(5, favorite_subject);
+	              stmt.setLong(6, type);
+	              stmt.setString(7, date);
+	              
+	              stmt.executeUpdate();
+	              stmt.close();
+	              conn.commit();
+
+	          } catch (Exception e) {
+	              System.out.printf("%s%n", e.getMessage());
+	              try {stmt.close();}
+	              catch (Exception err) {}
+	              try {conn.rollback();}
+	              catch (Exception err) {}
+	          }
+		
+	}
+ 
 	}
 		
