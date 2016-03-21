@@ -9,7 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
@@ -127,6 +131,94 @@ public class DBconn {
 		return null;
 		}
 
+	@SuppressWarnings("unchecked")
+	public JSONArray getEvents(String userId) {
+		JSONArray jsonArray = new JSONArray();
+		ResultSet rset = null;
+		String findUser = "SELECT * FROM events WHERE user_id = ?";
+		java.sql.PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(findUser);
+			stmt.setString(1, userId);
+			rset = stmt.executeQuery();
+			if (rset != null) {
+				ResultSetMetaData rsmd = rset.getMetaData();
+				int numColumns = rsmd.getColumnCount();
+				while (rset.next()) {
+					JSONObject obj = new JSONObject();
+					for(int i = 1; i < numColumns + 1; i++){
+						String col_name = rsmd.getColumnName(i);
+						Object columnValue = rset.getObject(i);
+		                obj.put(col_name, columnValue);
+					}
+			        jsonArray.add(obj);
+				}
+				stmt.close();
+				conn.commit();
+				return jsonArray;
+			} else {
+				stmt.close();
+				conn.commit();
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return null;
+		}
+
+	public void addQuickLink(String user_id, String link, String title) {
+		// TODO Auto-generated method stub
+		ResultSet rset = null;
+		java.sql.PreparedStatement stmt = null;
+		String sql = "INSERT INTO quick_link (user_id, link, title)"
+		        + " values (?, ?, ?)"; 
+					try {
+						stmt = conn.prepareStatement(sql);
+						stmt.setString(1, user_id);
+						stmt.setString(2, link);
+						stmt.setString(3, title);
+						
+						stmt.executeUpdate();
+						stmt.close();
+						conn.commit();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						try{stmt.close();}
+						catch(SQLException ex){}
+						
+						try{conn.rollback();}
+						catch(SQLException ex){}
+					}
+			}
+
+	public void removeQuickLink(String user_id, String title) {
+		// TODO Auto-generated method stub
+		java.sql.PreparedStatement stmt = null;
+		String sql = "DELETE FROM quick_link WHERE user_id = ? and title = ?"; 
+					try {
+						stmt = conn.prepareStatement(sql);
+						stmt.setString(1, user_id);
+						stmt.setString(2, title);
+						stmt.executeUpdate();
+						stmt.close();
+						conn.commit();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						try{stmt.close();}
+						catch(SQLException ex){}
+						
+						try{conn.rollback();}
+						catch(SQLException ex){}
+					}
+			}
+
+
 	public void addUser(String name, String email, String password, String affiliation, String favorite_subject,
 			Long type, String date) {
 		
@@ -164,3 +256,4 @@ public class DBconn {
 	}
  
 	}
+		

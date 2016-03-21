@@ -67,7 +67,7 @@
 										</select>
 	 					 			</div>
 	 					 			<input type="hidden" name="type" data-ng-init="type=1;" data-ng-value="type"/>
- +	 					 				<button data-ng-click="AddUser(user)"  class="btn btn-black">Submit</button>
+ 	 					 				<button data-ng-click="AddUser(user)"  class="btn btn-black">Submit</button>
 	                   				</div> 
                		 		</form>
                			</div>

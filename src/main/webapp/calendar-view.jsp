@@ -1,7 +1,24 @@
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+%>
+ <% 
+    response.setHeader("Cache-Control","no-store,must-revalidate"); 
+    response.setHeader("Pragma","no-cache"); 
+    response.setDateHeader ("Expires", -1); 
+    new java.util.Date();
+    User currUser = (User)(session.getAttribute("currentSessionUser"));
+    if(session.getAttribute("currentSessionUser") != null)
+    {
+   %>
 <%@ include file="script-link-tags.html" %>
-<body ng-app="CalendarControllers">
+
+<body id="calendar-body" ng-app="CalendarControllers" >
+	
 	<div class="divcalendar">
 	<div id="calendaroverallcontrols">
+	  <input id ="userId" type="hidden" name="userId" value="<%= currUser.getId() %>">
 	  <!-- <div id="year"></div> -->
 	  <div id="calendarmonthcontrols">
 	    <a id="btnPrevYr" href="#" title="Previous Year"><span><<</span></a>
@@ -31,8 +48,10 @@
 				<div class="form-group">
 					<textarea id="description" data-ng-model="event.message" class="form-control" placeholder="Description" required></textarea>
 				</div>
+				<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
 				<button data-ng-click="addEvent(event)" class="btn btn-black">Submit</button>
 			</form>
 		</div>
 	</div>
 <%@ include file="portal-footer.html" %>
+<% } %>

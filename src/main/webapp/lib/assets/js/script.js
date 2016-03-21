@@ -1,6 +1,4 @@
-///////////////////////////////
-// Fix the Home Height
-///////////////////////////////
+
 $(function() {
     var setHomeBannerHeight = function(){
         var homeHeight= $(window).height();
@@ -10,10 +8,6 @@ $(function() {
     setHomeBannerHeight();
 });
 
-
-/*=================================================================
-            Load more
-===================================================================*/
 
 $(document).ready(function () {
     $("#loadPortfolio").click(function(event) {
@@ -40,6 +34,50 @@ $(document).ready(function () {
 	});
 });
 
+function addToQuicklink(user_id, link, title) {	
+		$.ajax({
+				url: "AddQuickLinkServlet",
+				type: "POST",
+				dataType: 'json',
+				data:{"user_id" : user_id,
+						"link" : link,
+						"title": title
+				},
+				
+				success: function(data, status){
+					
+				},
+			    error : function(request,error)
+			    {
+					console.log("fav");	
+					$( ".favSection" ).removeClass(".favorite");
+					$( ".favSection" ).addClass(".favorited")
+			    }
+			});
+	}
+
+function removeFromQuicklink (user_id, title) {
+	$.ajax({
+		url: "RemoveQuickLinkServlet",
+		type: "POST",
+		dataType: 'json',
+		data:{"user_id" : user_id,
+				"title": title
+		},
+		
+		success : function(data) {              
+	        alert('Data: '+data);
+	    },
+	    error : function(request,error)
+	    {
+	    	console.log("heeeeeeeeee");
+			$(".favorited").append();
+			$(".favorite").remove();
+	    }
+	});
+
+}
+
 var password = document.getElementById("password");
 confirm_password = document.getElementById("confirm_password");
 
@@ -50,7 +88,6 @@ function validatePassword(){
 		confirm_password.setCustomValidity('');
 	}
 }
-
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 

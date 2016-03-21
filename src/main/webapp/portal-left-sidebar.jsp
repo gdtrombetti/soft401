@@ -13,7 +13,7 @@
 	           <h5 class="post-widget-heading">Tools</h5>
 	           <ul class="list-group">
 		           	<li class="list-group-item"><a href="#">Flash Card Sets</li></a>
-		           	<li class="list-group-item"><a href="#">Calendar</li></a>
+		           	<li class="list-group-item"><a href="calendar.jsp">Calendar</li></a>
 		           	<li class="list-group-item">Select a file to upload: <br />
 						<form action="UploadServlet" method="post" enctype="multipart/form-data">
 							<input type="file" name="file" size="50" />

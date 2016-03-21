@@ -42,8 +42,7 @@
 					</div>
 				</div>
 			</div>
-	
-</div>
+	</div>
 		<div class="col-md-3">
 			<%@ include file="portal-right-sidebar.jsp" %>
 		</div>
@@ -62,4 +61,4 @@
 </div>
 <%}
 else
-	response.sendRedirect("index.jsp");%>
+	response.sendRedirect("index.jsp"); %>

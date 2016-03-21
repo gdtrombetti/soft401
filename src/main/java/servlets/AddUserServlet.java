@@ -63,8 +63,10 @@ public class AddUserServlet extends HttpServlet {
 		    String affiliation = (String) joUser.get("affiliation");
 		    String favorite_subject= (String) joUser.get("favorite_subject");
 		    Long type = (Long) joUser.get("type");
+
 		    System.out.print(joUser);
 		    dbconn.addUser(name, email, password, affiliation, favorite_subject, type, date);
+
 		    response.setContentType("text/html");
 		    PrintWriter out = response.getWriter();
 		    
