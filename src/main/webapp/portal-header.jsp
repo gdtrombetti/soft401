@@ -47,8 +47,7 @@
                              
                              <%@ taglib prefix="c" 
            						uri="http://java.sun.com/jsp/jstl/core" %>
-                              <li><a><% User currentUser = (User)(session.getAttribute("currentSessionUser"));%>
-                               Welcome <%= currentUser.getFull_name() %></a>
+                              
                             </li>
                             <li>
                             	
