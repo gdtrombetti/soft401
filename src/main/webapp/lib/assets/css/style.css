@@ -184,6 +184,12 @@ html {
 .admin_form{
 	visibility:hidden;
 }
+.favorite {
+	visibility:hidden;
+}
+.favorited {
+	visibility:visible;
+}
 #mainNavigation .navbar-nav li ul.dropdown-submenu {
     right: 100%;
     position: absolute;

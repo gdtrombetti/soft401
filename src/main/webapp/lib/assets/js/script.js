@@ -33,24 +33,50 @@ $(document).ready(function () {
 		$(".basic_form").css("visibility","hidden");
 	});
 });
-$(document).ready(function() {
-	
-$('fav').click(function(user_id, link, title){
+
+function addToQuicklink(user_id, link, title) {	
 		$.ajax({
-			url: "AddFavoriteServlet",
-			type: "POST",
-			dataType: 'json',
-			data:{"user_id" : user_id,
-				  "link" : link,
-				  "title": title
-				 },
-			success: function(data){
-				console.log(data);
-				$( this ).switchClass("fa fa-star", "fa fa-star-o");		
-			}
-		});
+				url: "AddQuickLinkServlet",
+				type: "POST",
+				dataType: 'json',
+				data:{"user_id" : user_id,
+						"link" : link,
+						"title": title
+				},
+				
+				success: function(data, status){
+					
+				},
+			    error : function(request,error)
+			    {
+					console.log("fav");	
+					$( ".favSection" ).removeClass(".favorite");
+					$( ".favSection" ).addClass(".favorited")
+			    }
+			});
+	}
+
+function removeFromQuicklink (user_id, title) {
+	$.ajax({
+		url: "RemoveQuickLinkServlet",
+		type: "POST",
+		dataType: 'json',
+		data:{"user_id" : user_id,
+				"title": title
+		},
+		
+		success : function(data) {              
+	        alert('Data: '+data);
+	    },
+	    error : function(request,error)
+	    {
+	    	console.log("heeeeeeeeee");
+			$(".favorited").append();
+			$(".favorite").remove();
+	    }
 	});
-});
+
+}
 
 var password = document.getElementById("password");
 confirm_password = document.getElementById("confirm_password");

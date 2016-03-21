@@ -168,4 +168,51 @@ public class DBconn {
 		}
 		return null;
 		}
+
+	public void addQuickLink(String user_id, String link, String title) {
+		// TODO Auto-generated method stub
+		ResultSet rset = null;
+		java.sql.PreparedStatement stmt = null;
+		String sql = "INSERT INTO quick_link (user_id, link, title)"
+		        + " values (?, ?, ?)"; 
+					try {
+						stmt = conn.prepareStatement(sql);
+						stmt.setString(1, user_id);
+						stmt.setString(2, link);
+						stmt.setString(3, title);
+						
+						stmt.executeUpdate();
+						stmt.close();
+						conn.commit();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						try{stmt.close();}
+						catch(SQLException ex){}
+						
+						try{conn.rollback();}
+						catch(SQLException ex){}
+					}
+			}
+
+	public void removeQuickLink(String user_id, String title) {
+		// TODO Auto-generated method stub
+		java.sql.PreparedStatement stmt = null;
+		String sql = "DELETE FROM quick_link WHERE user_id = ? and title = ?"; 
+					try {
+						stmt = conn.prepareStatement(sql);
+						stmt.setString(1, user_id);
+						stmt.setString(2, title);
+						stmt.executeUpdate();
+						stmt.close();
+						conn.commit();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						try{stmt.close();}
+						catch(SQLException ex){}
+						
+						try{conn.rollback();}
+						catch(SQLException ex){}
+					}
+			}
 	}
+		

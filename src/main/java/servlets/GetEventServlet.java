@@ -50,7 +50,6 @@ public class GetEventServlet extends HttpServlet {
 			// convert java object to JSON format,
 			// and returned as JSON formatted string
 			String eventJson = gson.toJson(events);
-			System.out.print(eventJson);
 			PrintWriter out = response.getWriter();
 			if (events.isEmpty()) {
 				String noEventString = "There are no events";

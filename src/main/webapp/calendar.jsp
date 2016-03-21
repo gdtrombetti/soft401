@@ -7,7 +7,7 @@
     response.setHeader("Cache-Control","no-store,must-revalidate"); 
     response.setHeader("Pragma","no-cache"); 
     response.setDateHeader ("Expires", -1); 
-    new java.util.Date();
+    User curr = (User)(session.getAttribute("currentSessionUser"));
     if(session.getAttribute("currentSessionUser") != null)
     {
    %>
@@ -25,7 +25,19 @@
 					<a class="btn pricing-btn" href="#">Today</a> 
 					<a class="btn pricing-btn" href="#">Prev</a>
 					<a class="btn pricing-btn" href="#">Next</a>
-					<a class="btn pricing-btn" href="#"><i id="fav"class="fa fa-star-o"></i></a>
+					<script> var currHref=window.location.href;</script> 
+					<div class="favSection">
+					<div class="favorited">
+						<button onClick='addToQuicklink("<%= curr.getId() %>", currHref, "Calendar")'  type="submit"> 
+							<img src="lib/assets/img/favorites.png" height="35">
+						</button>
+					</div>
+					<div class="favorite">
+						<button onClick='removeFromQuicklink("<%= curr.getId() %>", "Calendar")'  type="submit" > 
+							<img src="lib/assets/img/favorited.png" height="35">
+						</button>
+					</div>
+					</div>
 					<h3>February 2016</h3>
 					<%@ include file="calendar-view.jsp"%>
 				</div>
