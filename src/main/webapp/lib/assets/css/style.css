@@ -108,6 +108,11 @@ html {
 	background-color: #fff;
 	color: #000;
 }
+.btn-white-ish-lol{
+	background-color: #969595
+	color: #000;
+	border-style: solid;
+}
 
 .btn-black:hover {
 	background-color: #fff;
@@ -173,7 +178,18 @@ html {
     padding: 10px 25px;
     display: block;
 }
-
+.basic_form{
+	visibility:hidden;
+}
+.admin_form{
+	visibility:hidden;
+}
+.favorite {
+	visibility:hidden;
+}
+.favorited {
+	visibility:visible;
+}
 #mainNavigation .navbar-nav li ul.dropdown-submenu {
     right: 100%;
     position: absolute;
@@ -214,11 +230,27 @@ html {
 .navbar .navbar-toggle .icon-bar {
 	background-color: #B9B9B9;
 }
+.sign-in-fail-message {
 
+	font-weight: inherit;
+	line-height: 1.2;
+	margin-top: 5;
+	font-size: 14px ;
+}
 .nav-tabs {
 	margin-right: 2px;
 }
-
+.css-form input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+    color: #FFF
+}
+.css-form input.ng-valid.ng-touched {
+    background-color: #78FA89;
+    color: #FFF
+}
+.sign-in-fail-message {
+	font-size: 2.887em;
+}
 .nav-tabs>li>a {
     border-radius: 0px;
     margin: 0px;
@@ -1566,7 +1598,25 @@ only screen and (max-device-width : 550px){
 .comments h3 {
     margin-bottom: 20px;
 }
-
+.view-sets-text {
+	font-size: 18px;
+}
+.flash-card-set-container {
+	padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	background-color: #656566;
+	color: #969595;
+}
+.portal-container {
+	padding: 20px;
+	margin: 10px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	background-color: #656566;
+	color: #969595; 
+}
 .btn-clipboard {
 	position:absolute;
 	top:0;

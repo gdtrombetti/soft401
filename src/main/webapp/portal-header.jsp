@@ -1,9 +1,6 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-	
-	<title>Student Assistance Tool</title>
-	<!-- meta -->
-	<meta charset="utf-8">
+<!DOCTYPE meta PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!-- stylesheets -->
@@ -18,10 +15,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script type="text/javascript" src="lib/assets/js/modernizr.custom.97074.js"></script>
-	<script src="lib/assets/js/controllers/user-controller.js"></script>
-<div data-ng-app="MyApp">
-	<div id="home-page">
-	<nav id="mainNavigation" class="navbar nav	bar-dafault main-navigation" role="navigation">
+	<script type="text/javascript" src="lib/assets/js/script.js"></script>
+
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+%>
+	<div id="home-page-portal">
+	<nav id="mainNavigation" class="navbar navbar-dafault main-navigation" role="navigation">
                 <div class="container">
                     
                     <div class="navbar-header">
@@ -45,41 +47,25 @@
                     <div class="collapse navbar-collapse" id="main-nav-collapse">
                         <ul class="nav navbar-nav navbar-right text-uppercase">
                             <li>
-                                <a href="index.jsp"><span>home</span></a>
+                                <a href="portal-index.jsp"><span>home</span></a>
                             </li>
-                              <li>
-                                <a href="signup.jsp"><span>sign-up</span></a>
+                             
+                             <%@ taglib prefix="c" 
+           						uri="http://java.sun.com/jsp/jstl/core" %>
+                              <li><a><% User currentUser = (User)(session.getAttribute("currentSessionUser"));%>
+                               Welcome <%= currentUser.getFull_name() %></a>
                             </li>
-                             <li class="dropdown" id="menuLogin">
-            					<a class="dropdown-toggle" data-toggle="dropdown" id="navLogin">Sign In</a>
-           						<div class="dropdown-menu" style="padding:20px;">
-              						
-              							<div data-ng-controller="UserController">
-              								<form name="user" novalidate role="form">
-	                         					<div class="form-group">
-	                             					<input type="email"  data-ng-model="user.email" class="form-control" placeholder="Email Address" id="email" required>
-	                         					</div>
-               									<div class="form-group">
-													<input type="password" data-ng-model="user.password" class="form-control" placeholder="Password" id="password" required>
-												</div>
-												<button data-ng-click="SignIn(user)" class="btn btn-white-ish-lol">Sign In</button>
-												<div data-ng-if="signInStatus == 200">
-  							  						<h4>{{signInMessage}}</h4>
- 							 					</div>
-              								</form>
-              							</div>
-              						</div>
-              					
-              				</li>
                             <li>
-                                <a href="contact.html"><span>contact</span></a>
-                            </li>
+                            	
+                                	<a href="SignOutUserServlet">Sign Out</a>
+                                
+                            </li>  
                         </ul>
                     </div><!-- nav links -->
-                    
                 </div><!-- /.container -->
             </nav>
            </div>
-        </head>
-      <body>
-            <!-- site-navigation end -->
+      	</div>
+ 
+      </head>
+    <body>
