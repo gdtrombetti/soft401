@@ -61,7 +61,7 @@
                      </ul> <!-- end of /.points -->
 
                      <a href="#" class="btn btn-slategray">
-                         purchase
+                         Get Started
                      </a> <!-- /purchase button -->
                  </div> <!-- end of /.intro-description -->
              </div>
@@ -80,13 +80,15 @@
                  <div class="feature-content text-center">
                      <div class="feature-icon-box">
                          <div class="feature-icon center-block">
-                             <i class="fa fa-laptop"></i>
+                             <i class="fa fa-th"></i>
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
-                         <h3 class="feature-heading">Responsive &amp; Multi-purpose</h3>
+                         <h3 class="feature-heading">FlashCard</h3>
                          <p class="feature-description">
-                             Class aptent taciti sociosqu ad litora torquent conubia nostra, per inceptos himenaeos.
+                           Millions of people are using this smart way to learn including students, teachers, and knowledge junkies. 
+                           Create flash cards to study for exam, certification exam, or customized pages for each of your classes,
+                              and shared them with your colleagues. 
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
                  </div> <!--  end of /.feature-content  -->
@@ -96,13 +98,14 @@
                  <div class="feature-content text-center">
                      <div class="feature-icon-box">
                          <div class="feature-icon center-block">
-                             <i class="fa fa-eye"></i>
+                             <i class="fa fa-calendar"></i>
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
-                         <h3 class="feature-heading">Clean &amp; Clear</h3>
+                         <h3 class="feature-heading">Study Planner</h3>
                          <p class="feature-description">
-                             Class aptent taciti sociosqu ad litora torquent conubia nostra, per inceptos himenaeos.
+                           Smart students have a plan. Manage your study effectively and monitor your time 
+                           on each subject to keep focused and boost motivation.  
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
                  </div> <!--  end of /.feature-content  -->
@@ -112,13 +115,14 @@
                  <div class="feature-content text-center">
                      <div class="feature-icon-box">
                          <div class="feature-icon center-block">
-                             <i class="fa fa-thumbs-o-up"></i>
+                             <i class="fa fa-question"></i>
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
-                         <h3 class="feature-heading">Best UX</h3>
+                         <h3 class="feature-heading">Quizzes</h3>
                          <p class="feature-description">
-                             Class aptent taciti sociosqu ad litora torquent conubia nostra, per inceptos himenaeos.
+                             Create quizzes in different formats, time your answers 
+                             and track your progress to fully prepare for your test                             
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
                  </div> <!--  end of /.feature-content  -->
@@ -132,9 +136,10 @@
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
-                         <h3 class="feature-heading">Good Feedback</h3>
+                         <h3 class="feature-heading">Track & Succedd</h3>
                          <p class="feature-description">
-                             Class aptent taciti sociosqu ad litora torquent conubia nostra, per inceptos himenaeos.
+                             Track your learning progress against your resources and see how 
+                             quickly you can pick up knowledge.You've got your goal covered!
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
                  </div> <!--  end of /.feature-content  -->
