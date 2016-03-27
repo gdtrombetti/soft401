@@ -16,6 +16,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script type="text/javascript" src="lib/assets/js/modernizr.custom.97074.js"></script>
 	<script type="text/javascript" src="lib/assets/js/script.js"></script>
+	<script type="text/javascript" src="lib/assets/js/controllers/card-set-controller.js"></script>
 
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
