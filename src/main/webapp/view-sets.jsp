@@ -10,6 +10,7 @@
 	</div>
 	<div class="col-md-6">
     	<div class="panel panel-default">
+        	<a href="create-card-set.jsp" class="btn btn-slategray">Add Flash Card Set</a>
         	<div class="panel-heading">
             	<h3 class="panel-title">Your Flash Card Sets</h3>
         	</div>

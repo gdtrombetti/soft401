@@ -50,13 +50,16 @@ function addToQuicklink(user_id, link, title) {
 			    error : function(request,error)
 			    {
 					console.log("fav");	
-					$( ".favSection" ).removeClass(".favorite");
-					$( ".favSection" ).addClass(".favorited")
+					
+					$(".favSection div:first").remove();
+					$(".favorite").css("visibility","visible");
+					
 			    }
 			});
 	}
 
 function removeFromQuicklink (user_id, title) {
+	
 	$.ajax({
 		url: "RemoveQuickLinkServlet",
 		type: "POST",
@@ -71,8 +74,12 @@ function removeFromQuicklink (user_id, title) {
 	    error : function(request,error)
 	    {
 	    	console.log("heeeeeeeeee");
-			$(".favorited").append();
-			$(".favorite").remove();
+	    	
+	    	
+	    	$(".favSection div:first").remove();
+	    	$(".favorited").css("visibility","visible");
+	    	$(".favSection").last().addClass("favorited");
+			
 	    }
 	});
 
