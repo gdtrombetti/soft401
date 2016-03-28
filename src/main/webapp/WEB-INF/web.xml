@@ -55,6 +55,19 @@
   	<description></description>
   	<servlet-class>servlets.RemoveQuickLinkServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AddCardSetServlet</servlet-name>
+  	<display-name>AddCardSetServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.AddCardSetServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>GetCardSetServlet</servlet-name>
+  	<display-name>GetCardSetServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.GetCardSetServlet</servlet-class>
+  </servlet>
+
   
   
   <servlet-mapping>
@@ -87,5 +100,14 @@
   	<servlet-name>RemoveQuickLinkServlet</servlet-name>
   	<url-pattern>/RemoveQuickLinkServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddCardSetServlet</servlet-name>
+  	<url-pattern>/AddCardSetServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GetCardSetServlet</servlet-name>
+  	<url-pattern>/GetCardSetServlet</url-pattern>
+  </servlet-mapping>
+
   </web-app>
 
