@@ -222,15 +222,12 @@ public class DBconn {
 	public void addUser(String name, String email, String password, String affiliation, String favorite_subject,
 			Long type, String date) {
 	
-		 PreparedStatement stmt = null;
+		 java.sql.PreparedStatement stmt = null;
          String sql;
          
-         
-		   if (!isopen) return;
-
 	          try {
 	        
-	              sql = "INSERT INTO users(full_name, email, password, affiliation, favorite_topic, type, signup_date) VALUES "
+	              sql = "INSERT INTO users (full_name, email, password, affiliation, favorite_topic, type, signup_date) VALUES "
 	                  + "(?, ?, ?, ?, ?, ?, ?)";
 	              stmt = conn.prepareStatement(sql);
 	              stmt.setString(1, name);
@@ -240,8 +237,7 @@ public class DBconn {
 	              stmt.setString(5, favorite_subject);
 	              stmt.setLong(6, type);
 	              stmt.setString(7, date);
-	            
-	              
+	           
 	              stmt.executeUpdate();
 	              stmt.close();
 	              conn.commit();
