@@ -221,7 +221,7 @@ public class DBconn {
 
 	public void addUser(String name, String email, String password, String affiliation, String favorite_subject,
 			Long type, String date) {
-		
+	
 		 PreparedStatement stmt = null;
          String sql;
          
@@ -240,11 +240,12 @@ public class DBconn {
 	              stmt.setString(5, favorite_subject);
 	              stmt.setLong(6, type);
 	              stmt.setString(7, date);
+	            
 	              
 	              stmt.executeUpdate();
 	              stmt.close();
 	              conn.commit();
-
+	              
 	          } catch (Exception e) {
 	              System.out.printf("%s%n", e.getMessage());
 	              try {stmt.close();}
