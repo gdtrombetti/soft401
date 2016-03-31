@@ -9,16 +9,16 @@
 	<link rel="stylesheet" href="lib/assets/css/animate.css">
 	<link rel="stylesheet" href="lib/assets/css/owl.carousel.css">
 	<link rel="stylesheet" href="lib/assets/css/owl.theme.css">
-	
+	<link rel="stylesheet" href="lib/assets/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 	<!-- scripts -->
-	<link rel="stylesheet" href="lib/assets/css/bootstrap.min.css">
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script type="text/javascript" src="lib/assets/js/modernizr.custom.97074.js"></script>
 	<script type="text/javascript" src="lib/assets/js/script.js"></script>
 	<script type="text/javascript" src="lib/assets/js/controllers/card-set-controller.js"></script>
 	
-
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"

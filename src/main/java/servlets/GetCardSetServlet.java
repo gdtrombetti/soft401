@@ -35,19 +35,16 @@ public class GetCardSetServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 	
 		String user_id = request.getParameter("user_id"); 
-		System.out.print(user_id);
 	    response.setContentType("text/html");
 		DBconn conn = new DBconn();
 		@SuppressWarnings("rawtypes")
 		List<String> sets = new ArrayList();
 			sets = conn.getSets(user_id);
-			System.out.print(sets);
 			Gson gson = new Gson();
 			String setsJson = gson.toJson(sets);
-			System.out.print(setsJson);
 			PrintWriter out = response.getWriter();
 			if (setsJson.isEmpty()) {
-				String noSetString = "There are no events";
+				String noSetString = "There are no sets";
 				out.print(noSetString);
 			    out.flush();
 			    out.close();

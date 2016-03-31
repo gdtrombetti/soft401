@@ -39,7 +39,7 @@ public class AddUserServlet extends HttpServlet {
 		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 Date dt = new Date();
 		 String date = dateFormat.format(dt);
-		System.out.print("hey");
+	
 		    try 
 		    {
 		      BufferedReader reader = request.getReader();

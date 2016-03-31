@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
+
 public class DBconn {
 	private Connection conn;
 	private boolean isopen;
@@ -33,7 +34,7 @@ public class DBconn {
 
 	try {
 		conn= DriverManager
-		.getConnection("jdbc:mysql://127.0.0.1:3306/westudy","root", "");
+		.getConnection("jdbc:mysql://127.0.0.1:3306/soft401","root", "");
 		conn.setAutoCommit(false); 
 
 	} catch (SQLException e) {
@@ -299,7 +300,7 @@ public class DBconn {
 						conn.commit();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						try{stmt.close();}
+						try{stmt2.close();}
 						catch(SQLException ex){}
 						
 						try{conn.rollback();}
@@ -349,5 +350,180 @@ public class DBconn {
 		return null;
 		
 	}
- }
+
+	public String addFlashCard(String title, String front, String back, Long user_id, String subject) {
+		Long id = null;
+		ResultSet rset2 = null;
+		java.sql.PreparedStatement stmt2 = null;
+		
+		String findSet = "SELECT * FROM card_set WHERE title = ? and user_id = ?";
+		java.sql.PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(findSet);
+			stmt.setString(1, title);
+			stmt.setLong(2, user_id);
+			
+			rset2 = stmt.executeQuery();
+			if (rset2 != null) {
+				ResultSetMetaData rsmd = rset2.getMetaData();
+				int numColumns = rsmd.getColumnCount();
+				ArrayList jsonArray;
+				while (rset2.next()) {
+					id = rset2.getLong("id");
+				}
+				stmt.close();
+				conn.commit();			
+			} else {
+				stmt.close();
+				conn.commit();
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		String sql = "INSERT INTO flash_cards (user_id, title, subject, front, back, card_set_id)"
+		        + " values (?, ?, ?, ?, ?, ?)"; 
+					try {
+						stmt2 = conn.prepareStatement(sql);
+						stmt2.setLong(1, user_id);
+						stmt2.setString(2, title);
+						stmt2.setString(3, subject);
+						stmt2.setString(4, front);
+						stmt2.setString(5, back);
+						stmt2.setLong(6, id);
+						
+						stmt2.executeUpdate();
+						stmt2.close();
+						conn.commit();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						try{stmt2.close();}
+						catch(SQLException ex){}
+						
+						try{conn.rollback();}
+						catch(SQLException ex){}
+					}
+				
+		return "Success";
+			}
+
+	public List<String> getFlashCards(Long user_id, String title) {
+		
+		ResultSet rset2 = null;
+		
+		String findSet = "SELECT * FROM card_set WHERE title = ? and user_id = ?";
+		java.sql.PreparedStatement stmt = null;
+		long card_set_id = 0;
+		try {
+			stmt = conn.prepareStatement(findSet);
+			stmt.setString(1, title);
+			stmt.setLong(2, user_id);
+			
+			rset2 = stmt.executeQuery();
+			if (rset2 != null) {
+				ResultSetMetaData rsmd = rset2.getMetaData();
+				int numColumns = rsmd.getColumnCount();
+				ArrayList jsonArray;
+				while (rset2.next()) {
+					card_set_id = rset2.getLong("id");
+				}
+				stmt.close();
+				conn.commit();			
+			} else {
+				stmt.close();
+				conn.commit();
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		JSONArray jsonArray = new JSONArray();
+		ResultSet rset = null;
+		String getCards = "SELECT * FROM flash_cards WHERE user_id = ? AND title = ? AND card_set_id = ?";
+		java.sql.PreparedStatement stmt3 = null;
+		try {
+			stmt3= conn.prepareStatement(getCards);
+			stmt3.setLong(1, user_id);
+			stmt3.setString(2, title);
+			stmt3.setLong(3, card_set_id);
+			rset = stmt3.executeQuery();
+			if (rset != null) {
+				ResultSetMetaData rsmd = rset.getMetaData();
+				int numColumns = rsmd.getColumnCount();
+				while (rset.next()) {
+					JSONObject obj = new JSONObject();
+					for(int i = 1; i < numColumns + 1; i++){
+						String col_name = rsmd.getColumnName(i);
+						Object columnValue = rset.getObject(i);
+		                obj.put(col_name, columnValue);
+					}
+			        jsonArray.add(obj);
+				}
+				stmt.close();
+				conn.commit();
+				return jsonArray;
+			} else {
+				stmt.close();
+				conn.commit();
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return null;
+	
+		}
+
+	public int getFlashCardCount(String user_id, String title) {
+		ResultSet rset = null;
+		String getCards = "SELECT COUNT(*) as count FROM flash_cards WHERE user_id = ? AND title = ?";
+		java.sql.PreparedStatement stmt = null;
+		int count = 0;
+		try {
+			stmt= conn.prepareStatement(getCards);
+			stmt.setString(1, user_id);
+			stmt.setString(2, title);
+
+			rset = stmt.executeQuery();
+			if (rset != null) {
+				ResultSetMetaData rsmd = rset.getMetaData();
+				
+				while (rset.next()) {
+					count = rset.getInt(1);
+				}
+				stmt.close();
+				conn.commit();
+				return count;
+			} else {
+				stmt.close();
+				conn.commit();
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return 0;
+	}
+}
+ 
 		
