@@ -40,7 +40,6 @@ public class GetEventServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    String user_id = request.getParameter("user_id"); 
-		System.out.print(user_id);
 	    response.setContentType("text/html");
 		DBconn conn = new DBconn();
 		List<String> events = new ArrayList();
