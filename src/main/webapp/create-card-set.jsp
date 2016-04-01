@@ -16,7 +16,6 @@
 <%@ include file="portal-header.jsp" %>
 <body ng-app="CardSetControllers">
 
-
 <div class="row">
 	<div class="col-md-3">
 	<%@ include file="portal-left-sidebar.jsp" %>
