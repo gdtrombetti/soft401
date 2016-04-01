@@ -107,6 +107,7 @@ $scope.addFlashCard = function() {
 	};
 		$scope.getFlashCards = function() {
 			$scope.title = getURLParameter('set');		
+			
 			var dataObj = {	
 				user_id : $scope.userId,
 				title : $scope.title		
@@ -114,8 +115,7 @@ $scope.addFlashCard = function() {
 			
 			var res = $http.post('GetFlashCardServlet', dataObj);
 			res.success(function(data, status, headers, config) {	
-				
-				
+				$scope.flash_cards = data;
 			});
 			res.error(function(data, status, headers, config) {
 				alert( "failure message: " + JSON.stringify({data: data}));
