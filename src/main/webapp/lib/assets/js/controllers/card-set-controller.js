@@ -1,5 +1,6 @@
 var card = angular.module("CardSetControllers", []);
-card.controller('CardSetController', function ($scope, $http, $window, $location) {
+card.controller('CardSetController', function ($scope, $http, $window, $location, $confirm) {
+	
 	$scope.AddSet = function(set) {
 		if(!set.$valid) {
 			return;
@@ -21,6 +22,7 @@ card.controller('CardSetController', function ($scope, $http, $window, $location
 		};
 		
 	$scope.getSets = function(user_id) {
+		$scope.count = 0;
 		var res =
 			$http({
 			    url: 'GetCardSetServlet', 
@@ -28,9 +30,19 @@ card.controller('CardSetController', function ($scope, $http, $window, $location
 			    params: {user_id: user_id}
 			 });
 			
-		res.success(function(data, status, headers, config) {	
-			$scope.sets = data;	
-
+		res.success(function(data, status, headers, config) {				
+			$scope.title ="";
+			for (var key in data) {
+				   var obj = data[key];
+				   for (var prop in obj) {
+				     if (prop == "title"){
+					   $scope.title = obj[prop];
+					   $scope.count = getFlashCardCount(user_id, $scope.title);
+					   obj["count"] = $scope.count;
+				     }
+				   }
+				}
+			$scope.sets = data;		
 		});
 		res.error(function(data, status, headers, config) {
 			alert( "failure message: " + JSON.stringify({data: data}));
@@ -65,7 +77,6 @@ $scope.addFlashCard = function() {
 	};
 	$scope.getFlashCards = function() {
 		$scope.title = getURLParameter('set');		
-		console.log($scope.userId);
 		var dataObj = {	
 			user_id : $scope.userId,
 			title : $scope.title		
@@ -78,17 +89,37 @@ $scope.addFlashCard = function() {
 			alert( "failure message: " + JSON.stringify({data: data}));
 		});
 	};
-	$scope.getFlashCardCount = function(user_id, title) {
+	$scope.removeFlashCardSet= function(user_id, title) {
 		var dataObj = {	
-			user_id : user_id,
-			title : title		
+			user_id : $scope.userId,
+			title : $scope.title		
 		};
-		var res = $http.post('GetFlashCardCount', dataObj);
-		res.success(function(data, status, headers, config) {	
-			return $scope.count = data;
+		$confirm({text: 'Are you sure you want to delete?'})
+        .then(function() {
+        	var res = $http.post('RemoveFlashCardSetServlet', dataObj);
+			res.success(function(data, status, headers, config) {			
 		});
-		res.error(function(data, status, headers, config) {
+			res.error(function(data, status, headers, config) {
 			alert( "failure message: " + JSON.stringify({data: data}));
-		});
-	}
+			});
+        });
+		
+	};
+		$scope.getFlashCards = function() {
+			$scope.title = getURLParameter('set');		
+			var dataObj = {	
+				user_id : $scope.userId,
+				title : $scope.title		
+			};
+			
+			var res = $http.post('GetFlashCardServlet', dataObj);
+			res.success(function(data, status, headers, config) {	
+				
+				
+			});
+			res.error(function(data, status, headers, config) {
+				alert( "failure message: " + JSON.stringify({data: data}));
+			});
+		};
+	
 });

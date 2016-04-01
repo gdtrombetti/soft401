@@ -84,7 +84,19 @@ function removeFromQuicklink (user_id, title) {
 	});
 
 }
-
+function getFlashCardCount (user_id, title){
+	var count;
+	$.ajax({
+		type: "POST",
+		url: "GetFlashCardCount",
+		async: false,
+		data: { user_id: user_id, title: title },
+		success : function ( data ) {
+			count = data;
+		}
+	});
+	return count;
+};
 var password = document.getElementById("password");
 confirm_password = document.getElementById("confirm_password");
 

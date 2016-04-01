@@ -35,34 +35,12 @@ public class GetFlashCardCount extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBconn conn = new DBconn();
-		int count = 0;
 		PrintWriter out = response.getWriter();
-		StringBuffer sb = new StringBuffer();
-	    try 
-	    {
-	      BufferedReader reader = request.getReader();
-	      String line = null;
-	      while ((line = reader.readLine()) != null)
-	      {
-	        sb.append(line);
-	      }
-	    } catch (Exception e) { e.printStackTrace(); }
-	 
-	    JSONParser parser = new JSONParser();
-	    JSONObject joUser = null;
-	    try
-	    {
-	      joUser = (JSONObject) parser.parse(sb.toString());
-	    } catch (ParseException e) { e.printStackTrace(); }
-
-	    String user_id = (String) joUser.get("user_id");
-	    String title = (String) joUser.get("title");
-	    response.setContentType("text/html");
-		
+		int count = 0;
+		String user_id = request.getParameter("user_id"); 
+		String title = request.getParameter("title"); 
 		count = conn.getFlashCardCount(user_id, title);
-		System.out.print(count + "YPPPP");
-	
-			
+		out.println(count);				
 	}
 
 }
