@@ -1,5 +1,5 @@
 var card = angular.module("CardSetControllers", []);
-card.controller('CardSetController', function ($scope, $http, $window, $location, $confirm) {
+card.controller('CardSetController', function ($scope, $http, $window, $location) {
 	
 	$scope.AddSet = function(set) {
 		if(!set.$valid) {
