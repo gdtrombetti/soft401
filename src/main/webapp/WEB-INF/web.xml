@@ -85,6 +85,12 @@
   	<description></description>
   	<servlet-class>servlets.GetFlashCardCount</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>RemoveFlashCardSetServlet</servlet-name>
+  	<display-name>RemoveFlashCardSetServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.RemoveFlashCardSetServlet</servlet-class>
+  </servlet>
 
   
   
@@ -137,6 +143,10 @@
   <servlet-mapping>
   	<servlet-name>GetFlashCardCount</servlet-name>
   	<url-pattern>/GetFlashCardCount</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RemoveFlashCardSetServlet</servlet-name>
+  	<url-pattern>/RemoveFlashCardSetServlet</url-pattern>
   </servlet-mapping>
 
   </web-app>
