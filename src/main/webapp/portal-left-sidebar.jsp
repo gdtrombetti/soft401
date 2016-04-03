@@ -1,15 +1,32 @@
+	
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+         
+%>
+<%
+    response.setHeader("Cache-Control","no-store,must-revalidate"); 
+    response.setHeader("Pragma","no-cache"); 
+    response.setDateHeader ("Expires", -1); 
+    new java.util.Date();
+    User user3 = (User)(session.getAttribute("currentSessionUser"));
+    %>
 <%@ include file="script-link-tags.html" %>
+ <div ng-app="CardSetControllers" data-ng-controller="CardSetController">
 <div class="tab-widget">
    <h4>Portal Navigation</h4>
    <div class="nav-tabs-default">
        <div class="tab-content">
 	         <div class="popular-post">
 	           <h5 class="post-widget-heading">Quick Links</h5>
-	           <ul class="list-group">
-		           	<li class="list-group-item"><a href="#">Computer Science Flash Cards</li></a>
-		           	<li class="list-group-item"><a href="#"> Hospitality Flash Cards</li></a>
-		           	<li class="list-group-item"><a href="#"> Sign-Out</li></a>
-	           </ul>
+	            <div data-ng-init="getQuickLinks('<%= user3.getId() %>')">
+		           <div data-ng-repeat="link in q_links">
+		           		<ul class="list-group">
+			           		<li class="list-group-item"><a href={{link.link}}>{{link.title}}</a><img data-ng-click="removeQuickLink($index,'<%= user3.getId() %>', link.link)" src="lib/assets/img/trash.png" /></li>
+		          		 </ul>
+		           </div>
+	           </div>
 	           <h5 class="post-widget-heading">Tools</h5>
 	           <ul class="list-group">
 		           	<li class="list-group-item"><a href="view-sets.jsp">Flash Card Sets</li></a>
@@ -19,4 +36,5 @@
 	         </div>
 	     </div>
        </div>
+      </div>
 </div>

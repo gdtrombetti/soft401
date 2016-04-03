@@ -34,56 +34,6 @@ $(document).ready(function () {
 	});
 });
 
-function addToQuicklink(user_id, link, title) {	
-		$.ajax({
-				url: "AddQuickLinkServlet",
-				type: "POST",
-				dataType: 'json',
-				data:{"user_id" : user_id,
-						"link" : link,
-						"title": title
-				},
-				
-				success: function(data, status){
-					
-				},
-			    error : function(request,error)
-			    {
-					console.log("fav");	
-					
-					$(".favSection div:first").remove();
-					$(".favorite").css("visibility","visible");
-					
-			    }
-			});
-	}
-
-function removeFromQuicklink (user_id, title) {
-	
-	$.ajax({
-		url: "RemoveQuickLinkServlet",
-		type: "POST",
-		dataType: 'json',
-		data:{"user_id" : user_id,
-				"title": title
-		},
-		
-		success : function(data) {              
-	        alert('Data: '+data);
-	    },
-	    error : function(request,error)
-	    {
-	    	console.log("heeeeeeeeee");
-	    	
-	    	
-	    	$(".favSection div:first").remove();
-	    	$(".favorited").css("visibility","visible");
-	    	$(".favSection").last().addClass("favorited");
-			
-	    }
-	});
-
-}
 function flip() {
     $('.card').toggleClass('flipped');
 }

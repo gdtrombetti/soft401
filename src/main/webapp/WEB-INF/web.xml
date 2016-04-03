@@ -91,6 +91,12 @@
   	<description></description>
   	<servlet-class>servlets.RemoveFlashCardSetServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>GetQuickLinkServlet</servlet-name>
+  	<display-name>GetQuickLinkServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.GetQuickLinkServlet</servlet-class>
+  </servlet>
 
   
   
@@ -147,6 +153,10 @@
   <servlet-mapping>
   	<servlet-name>RemoveFlashCardSetServlet</servlet-name>
   	<url-pattern>/RemoveFlashCardSetServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GetQuickLinkServlet</servlet-name>
+  	<url-pattern>/GetQuickLinkServlet</url-pattern>
   </servlet-mapping>
 
   </web-app>

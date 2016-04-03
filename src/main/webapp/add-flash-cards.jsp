@@ -52,11 +52,11 @@
 						for (var i = 0; i < sURLVariables.length; i++) {
 							var sParameterName = sURLVariables[i].split('=');
 							if (sParameterName[0] == sParam) {
-						return sParameterName[1];
+								return sParameterName[1];
+							}
+						}
 					}
-				}
-			}
-			</script>	
+					</script>	
 					<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
 						
 	                	<div data-ng-if="flash_card_status != undefined">
