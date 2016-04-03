@@ -66,7 +66,6 @@
                             
                             if(user2.getType().equals("1"))
     							{
-                            	
                             %>
                            		<a href="portal-basic.jsp"> Home
                             <% } else if (user2.getType().equals("2")) {
@@ -83,9 +82,7 @@
                             </li>
 
                             <li>
-                            	
-                                	<a href="SignOutUserServlet">Sign Out</a>
-                                
+                                <a href="SignOutUserServlet">Sign Out</a>
                             </li>  
                         </ul>
                     </div><!-- nav links -->

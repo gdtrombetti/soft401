@@ -1,5 +1,5 @@
 
-  <title>Study page</title>
+ <title>Study page</title>
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
@@ -18,6 +18,7 @@
 <%@ include file="portal-header.jsp" %>
 
 <body ng-app="CardSetControllers">
+<div data-ng-controller="CardSetController">
 		<div class="col-sm-9 sidenav text-center">
 			<script>
 					function getURLParameter(sParam) {
@@ -31,10 +32,17 @@
 					}
 				}
 			}
+				function getUrl() {
+					return window.location.href;
+				}
 			</script>
+				<button data-ng-click='addToQuicklink("<%= currUser.getId() %>","Flash Card Study")'  type="submit"> 
+					<img src="lib/assets/img/logo3.png" height="35">
+				</button>
+				<h3>{{q_link_status}}</h3>
 			<h3>Study Mode</h3>
 			<br>
-		<div data-ng-controller="CardSetController">
+		
 		<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
 		  <select ng-model="modes">
           	<option value="frontfirst">FRONT FIRST</option>

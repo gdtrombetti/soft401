@@ -1,6 +1,7 @@
 var card = angular.module("CardSetControllers", []);
 card.controller('CardSetController', function ($scope, $http, $window, $location) {
 	$scope.modes = 'frontfirst';
+	$scope.q_links = [];
 	$scope.AddSet = function() {
 		 var dataObj = {
 				title : $scope.title,
@@ -21,6 +22,7 @@ card.controller('CardSetController', function ($scope, $http, $window, $location
 		};
 		
 	$scope.getSets = function(user_id) {
+		console.log("HEyy");
 		$scope.count = 0;
 		var res =
 			$http({
@@ -155,8 +157,58 @@ $scope.addFlashCard = function() {
 	$scope.directToStudyCard = function(title, subject) {
 			window.location = "studyCard.jsp?set=" + title;
 		};
+$scope.addToQuicklink = function(user_id, title) {
 
+	$scope.set = getURLParameter('set');
+	$scope.link = getUrl();
+	$scope.title = title + "-" + $scope.set;
+	var dataObj = {	
+			user_id : user_id,
+			link : $scope.link,
+			title : $scope.title
+		};
+	var res = $http.post("AddQuickLinkServlet", dataObj);
+	res.success(function(data, status, headers, config) {	
+		$scope.q_link_status = data;
+	});
+	res.error(function(data, status, headers, config) {
+		alert( "failure message: " + JSON.stringify({data: data}));
+	});	
+};
+
+$scope.getQuickLinks = function(user_id) {
+	var dataObj = {	
+		user_id : user_id,
+	};
+	var res = $http.post("GetQuickLinkServlet", dataObj);
+	res.success(function(data, status, headers, config) {	
+		$scope.q_links = data;
+	});
+	res.error(function(data, status, headers, config) {
+		alert( "failure message: " + JSON.stringify({data: data}));
+	});	
+};
+
+$scope.removeQuickLink = function (index, user_id, link) {
+	var dataObj = {	
+			user_id : user_id,
+			link : link,
+		};
+	var res = $http.post("RemoveQuickLinkServlet", dataObj);
+	res.success(function(data, status, headers, config) {	
+		$scope.remove_link_status = data;
+		console.log($scope.remove_link_status);
+		if ($scope.remove_link_status == "Success") {
+			$scope.q_links.splice(index, 1);
+		}
+	});
+	res.error(function(data, status, headers, config) {
+		alert( "failure message: " + JSON.stringify({data: data}));
+	});	
+
+	}
 });
+
 
 angular.module('CardSetControllers').filter('pagination', function(){
 	return function(input, start) {
