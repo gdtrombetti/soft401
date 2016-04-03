@@ -36,8 +36,7 @@
                 		<li class="view-sets-text"><b>Subject:</b> {{set.subject}}</li>
                 		<li class="view-sets-text"><b>Description:</b> {{set.description}}</li>
                 		<li class="view-sets-text"><b>Number of Cards:</b> {{set.count}}</li>
-                		<li><h3><a data-ng-click="directToFlashCard(set.title, set.subject)">Add</a> | <a data-ng-click="removeFlashCardSet(set.title, set.subject)" 
-                		data-confirm="Are you sure, {{name}}?" data-confirm-title="Please verify, {{name}}?" data-confirm-ok="Yes" data-confirm-cancel="No" >Delete </a> | <a href="#">Study</a></h3></li>
+                		<li><h3><a data-ng-click="directToFlashCard(set.title, set.subject)">Add</a> | <a data-ng-click="removeFlashCardSet(set.title, '<%= currUser.getId() %>')" >Delete </a> | <a data-ng-click="directToStudyCard(set.title, set.subject)">Study</a></h3></li>
                 	</ul>
                 </div>
     		</div>

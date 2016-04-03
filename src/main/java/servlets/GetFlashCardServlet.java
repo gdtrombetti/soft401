@@ -56,7 +56,7 @@ public class GetFlashCardServlet extends HttpServlet {
 
 	    Long user_id = (Long) joUser.get("user_id");
 	    String title = (String) joUser.get("title");
-		System.out.print(user_id);
+		
 	    response.setContentType("text/html");
 		DBconn conn = new DBconn();
 		@SuppressWarnings("rawtypes")
@@ -71,10 +71,10 @@ public class GetFlashCardServlet extends HttpServlet {
 			    out.flush();
 			    out.close();
 			} else {
-			  response.setContentType("application/json");
-			    out.print(cardsJson);
-			    out.flush();
-			    out.close();
+			  response.setContentType("application/json"); 
+			  out.print(cardsJson);
+			  out.flush();
+			  out.close();
 			}
 	}
 }

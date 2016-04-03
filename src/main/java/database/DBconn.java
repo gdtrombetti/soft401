@@ -524,6 +524,39 @@ public class DBconn {
 		}
 		return 0;
 	}
+
+	public String removeCardSetFromDatabase(String user_id, String title) {
+		ResultSet rset = null;
+		System.out.print(user_id);
+		String getCards = "DELETE FROM card_set WHERE user_id = ? AND title = ?";
+		java.sql.PreparedStatement stmt = null;
+		int count = 0;
+		try {
+			stmt = conn.prepareStatement(getCards);
+			stmt.setString(1, user_id);
+			stmt.setString(2, title);
+
+			count = stmt.executeUpdate();
+			System.out.print(count);
+			if (count > 0) {
+				stmt.close();
+				conn.commit();
+				return "Success";
+			} else {
+				stmt.close();
+				conn.commit();
+				return "Fail";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return "Fail";
+	}
 }
  
 		
