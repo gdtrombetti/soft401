@@ -102,6 +102,10 @@ html {
 .btn-slategray {
 	background-color: #313131;
 	color: #fff;
+	position: absolute;
+    top: 100%;
+    right: 45%;
+    
 }
 
 .btn-white {
@@ -120,8 +124,8 @@ html {
 }
 
 .btn-slategray:hover {
-	background-color: #000000;
-	color: #C0DBB4;
+	background-color: #65c8e5;
+	color: #fff;
 }
 
 .btn-white:hover {
@@ -751,7 +755,8 @@ section {
 /*------------------------------  header -----------------------------------*/
 
 #header {
-    background: url(../img/slider1.jpg) no-repeat center center;
+	background: url(http://gettingsmart.com/wp-content/uploads/2015/06/graduation-School-Seamless-483x335.jpg) no-repeat center center;
+    /*background: url(../img/slider1.jpg) no-repeat center center;*/
     background-attachment: fixed;
     background-size: cover;
     display: table;
@@ -782,9 +787,14 @@ section {
 }
 
 .header-wrapper .header-wrapper-inner .welcome-speech h1 {
-	color: #232c35;
-    font-size: 35px;
-    font-weight: 100;
+	text-shadow:  
+	-1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; 
+	color: #65c8e5;
+    font-size: 50px;
+    font-weight: 900;
     letter-spacing: 6px;
     margin-bottom: 12px;
     margin-top: 0;
@@ -792,8 +802,14 @@ section {
 }
 
 .header-wrapper .header-wrapper-inner .welcome-speech p {
-	color: #232c35;
-    font-size: 14px;
+	text-shadow:  
+	-1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; 
+	color: #00e6e6;
+    font-size: 22px;
+    font-weight: 900;
     letter-spacing: 3px;
     margin-bottom: 4.2em;
 }
@@ -862,11 +878,11 @@ section {
     width: 90px;
 }
 
-.feature-content:hover .feature-icon {
+/*.feature-content:hover .feature-icon {
 	background-color: #ffffff;
 	border: 1px solid #313131;
 	color: #313131;
-}
+}*/
 
 .feature-heading {
 	font-size: 18px;
@@ -1067,7 +1083,7 @@ section {
     margin-bottom: 25px;
 }
 
-.price-box:hover {
+/*.price-box:hover {
     background-color: #313131;
 }
 
@@ -1076,7 +1092,7 @@ section {
 .price-box:hover .price sup,
 .price-box:hover .price span {
     color: #fff;
-}
+} */
 
 .price-box:hover .pricing-btn {
     background-color: #fff;

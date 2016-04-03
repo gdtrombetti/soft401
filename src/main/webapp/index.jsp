@@ -7,8 +7,8 @@
         <div class="container">
 
             <div class="welcome-speech">
-                <h1>Welcome to our platform</h1>
-                <p>Everything you need to be successful</p>
+                <h1>Welcome to WeStudy</h1>
+                <p></p>
             </div><!-- /.intro -->
      </div><!-- /.container -->
  </div><!-- /.header-wrapper-inner -->
@@ -23,14 +23,17 @@
      <div class="container">
          <div class="row">
              <div class="col-md-5">
-                 <img src="lib/assets/img/intro.jpg" class="img-responsive center-block" alt="intro">
+              
+                <img src="lib/assets/img/index_card_chart.png" class="img-responsive center-block" alt="intro">
+                
+                
              </div>
 
              <div class="col-md-7">
                  <div class="intro-description">
-                     <h2>Student Assistant tool can be Used by Everyone</h2>
+                     <h2 align="left">Study Assistance Tool</h2>
                      <p>
-                         The Assistant tool is a versatile platform that allows for collaborative interactions that helps users organize and prioritize everyday tasks.
+                         WeStudy is a study assistance tool that can be used by anyone! 
                      </p>
 
                      <ul class="points">
@@ -38,28 +41,28 @@
                              <span>
                                  <i class="fa fa-star"></i>
                              </span>
-                             Create schedules to keep track of upcoming events.
+                             <b>STUDY</b> flashcard sets created by you in multiple modes.
                          </li>
                          <li>
                              <span>
                                  <i class="fa fa-star"></i>
                              </span>
-                            Create study notes for professional, and educational information.
+                            <b>REVIEW</b> graphical representations of your study statistics.
                          </li>
                          <li>
                              <span>
                                  <i class="fa fa-star"></i>
                              </span>
-                           Share flash card sets with other users.
+                           <b>SCHEDULE</b> upcoming events on your calendar.
                          </li>
                          <li>
                              <span>
                                  <i class="fa fa-star"></i>
                              </span>
-                            Chat with other users to collaborate ideas.
+                           <b>SHARE</b> flashard sets with other users.
                          </li>
                      </ul> <!-- end of /.points -->
-
+					
                      <a href="#" class="btn btn-slategray">
                          Get Started
                      </a> <!-- /purchase button -->
@@ -84,11 +87,11 @@
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
-                         <h3 class="feature-heading">FlashCard</h3>
+                         <h3 class="feature-heading">Flashcards</h3>
                          <p class="feature-description">
-                           Millions of people are using this smart way to learn including students, teachers, and knowledge junkies. 
-                           Create flash cards to study for exam, certification exam, or customized pages for each of your classes,
-                              and shared them with your colleagues. 
+                           Students, teachers, and knowledge junkies alike are using this smart way to learn. 
+                           Create flash cards to study for exams, certifications, or business briefings. Customize sets for each of your classes,
+                           and share them with your students and colleagues. 
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
                  </div> <!--  end of /.feature-content  -->
@@ -102,9 +105,9 @@
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
-                         <h3 class="feature-heading">Study Planner</h3>
+                         <h3 class="feature-heading">Event Tracker</h3>
                          <p class="feature-description">
-                           Smart students have a plan. Manage your study effectively and monitor your time 
+                           Smart students and professionals have a plan. Manage your study effectively and monitor your time 
                            on each subject to keep focused and boost motivation.  
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
@@ -121,8 +124,7 @@
                      <div class="feature-info">
                          <h3 class="feature-heading">Quizzes</h3>
                          <p class="feature-description">
-                             Create quizzes in different formats, time your answers 
-                             and track your progress to fully prepare for your test                             
+                             Create quizzes in different formats. Track your progress to fully prepare for your test.                             
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
                  </div> <!--  end of /.feature-content  -->
@@ -136,10 +138,10 @@
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
-                         <h3 class="feature-heading">Track & Succedd</h3>
+                         <h3 class="feature-heading">Track Statistics</h3>
                          <p class="feature-description">
-                             Track your learning progress against your resources and see how 
-                             quickly you can pick up knowledge.You've got your goal covered!
+                             See your learning progress through visual, graphical representations. View suggestions
+                             based upon your strengths and weaknesses in order to reach your goals!
                          </p>  <!--   end of /.feature-description  -->
                      </div> <!--   end of /.feature-info  -->
                  </div> <!--  end of /.feature-content  -->
@@ -168,29 +170,29 @@
          <div class="row">
              <div class="col-md-6 col-sm-6">
                  <div class="price-box">
-                     <h3>Basic</h3>
+                     <h3>BASIC</h3>
                      <div class="price-info">
                          <span>Personal Schedule</span>
                          <span>Add/Delete/Edit Flash Cards</span>
                          <span>Multiple Study Modes</span>
-                         <span>Chat/Share with Friends</span>
+                         <span>Join Administrative Groups</span>
                          <p class="price"><span>Free</span></p>
                      </div> <!-- /.price-info -->
-                     <a href="#" class="btn pricing-btn">Get Started</a>
+                  
                  </div> <!-- /.price-box -->
              </div>
 
              <div class="col-md-6 col-sm-6">
                  <div class="price-box">
-                     <h3>Administrator</h3>
+                     <h3>ADMINISTRATOR</h3>
                      <div class="price-info">
                      	<span>Personal Schedule</span>
                          <span>Add/Delete/Edit Flash Cards</span>
                          <span>Multiple Study Modes</span>
-                         <span>Create Groups to Share, Assist, and Communicate with</span>
+                         <span>Create Groups to Share Flash Card Sets with</span>
                          <p class="price"><span>Free</span></p>
                      </div> <!-- /.price-info -->
-                     <a href="#" class="btn pricing-btn">Get Started</a>
+                
                  </div> <!-- /.price-box -->
              </div>
           </div>
@@ -198,4 +200,4 @@
      </div>
     </section>
  <!-- end of pricing section -->                    
-<%@ include file="footer.html" %>
+ 
