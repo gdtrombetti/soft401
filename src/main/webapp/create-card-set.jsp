@@ -28,20 +28,19 @@
         	<form name="card_set" novalidate role="form" data-ng-controller="CardSetController">
         	<h2 class="panel-title">TITLE:</h2>
 	       	<div class="form-group">
-	         	<input type="title"  data-ng-model="card_set.title" class="form-control" placeholder="Title" id="title" required>
+	         	<input type="title"  data-ng-model="title" class="form-control" placeholder="Title" id="title" required>
 	         </div>
 	        <h2 class="panel-title">SUBJECT:</h2>
              <div class="form-group">
-				<input type="subject" data-ng-model="card_set.subject" class="form-control" placeholder="Subject" id="subject" required>
+				<input type="subject" data-ng-model="subject" class="form-control" placeholder="Subject" id="subject" required>
 			</div>
 			<h2 class="panel-title">DESCRIPTION:</h2>
 			<div class="form-group">
 			 
-    <textarea id="text" cols="40" rows="5" my-maxlength="5" data-ng-model="card_set.description"></textarea>
+    <textarea id="text" cols="40" rows="5" my-maxlength="5" data-ng-model="description"></textarea>
     </div>
     <input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
-			<button data-ng-click="AddSet(card_set)" class="btn btn-white-ish-lol">Create</button>
-
+			<button data-ng-click="AddSet()" class="btn btn-white-ish-lol">Create</button>
 		</form>
 	</div>
 	<div class="col-md-3"></div>

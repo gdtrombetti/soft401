@@ -84,6 +84,10 @@ function removeFromQuicklink (user_id, title) {
 	});
 
 }
+function flip() {
+    $('.card').toggleClass('flipped');
+}
+
 function getFlashCardCount (user_id, title){
 	var count;
 	$.ajax({

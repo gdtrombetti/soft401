@@ -1,109 +1,136 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
   <title>Study page</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 500}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f2f2f2;
-      height: 500px;
-    }
-		.rightcolor{
-			background-color:#e6e6e6;
-			height:500px;
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+   %>
+   <%
+    response.setHeader("Cache-Control","no-store,must-revalidate"); 
+    response.setHeader("Pragma","no-cache"); 
+    response.setDateHeader ("Expires", -1); 
+    new java.util.Date();
+    User currUser = (User)(session.getAttribute("currentSessionUser"));
+    if(session.getAttribute("currentSessionUser") != null)
+    {
+    	
+    %>
+<%@ include file="portal-header.jsp" %>
 
-		}
-	
-	/* set light blue background color*/
-	header{
-		background-color:#bfbfbf;
-		padding:15px;
-	}
-
-
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: auto;
-      }
-      .row.content {height: auto;} 
-    }
-	.mybox {
-    background-color: white;
-    width: 500px;
-	height:300px;
-    padding: 25px;
-    border: 1px solid grey;
-    margin: auto;
-}
-  </style>
-</head>
-<body>
-	<header class="container-fluid">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>                        
-		</button>
-		<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-education"></a>
-
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#"><span class="glyphicon glyphicon-home "></span>Home</a></li>
-				<li><a href="#">Projects</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-phone-alt "></span>Contact</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user "></span>Welcome User</a></li>
-				<li><a href="#">Signout</a></li>
-			</ul>
-		</div>
- 	</header>
-	<div class="container-fluid">
-	<div class="row content">
+<body ng-app="CardSetControllers">
 		<div class="col-sm-9 sidenav text-center">
+			<script>
+					function getURLParameter(sParam) {
+						var sPageURL = window.location.search.substring(1);
+						var sURLVariables = sPageURL.split('&');
+					
+						for (var i = 0; i < sURLVariables.length; i++) {
+							var sParameterName = sURLVariables[i].split('=');
+							if (sParameterName[0] == sParam) {
+						return sParameterName[1];
+					}
+				}
+			}
+			</script>
 			<h3>Study Mode</h3>
 			<br>
-			<div class="mybox">some text</div>
-      		<h4> 1 of 12</h4>
-			<ul class="pager">
-				<li><a href="#"><span class="glyphicon glyphicon-step-backward "></span>Previous</a></li>
-				<li><a href="#">Flip<span class="glyphicon glyphicon-repeat "></span></a></li>
-				<li><a href="#">Next<span class="glyphicon glyphicon-step-forward "></span></a></li>
-			</ul>
-		</div>
+		<div data-ng-controller="CardSetController">
+		<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
+		  <select ng-model="modes">
+          	<option value="frontfirst">FRONT FIRST</option>
+          	<option value="backfirst">BACK FIRST</option>
+          	<option value="randomfront">RANDOM FRONTS FIRST</option>
+          	<option value="randomback">RANDOM BACKS FIRST</option>
+   		 </select>
+    
+			<div data-ng-show="modes == 'frontfirst'">
+				<div data-ng-init="getFlashCards()">
+					<div class="paginationclass" data-ng-repeat="flash_card in flash_cards | pagination: curPage * pageSize | limitTo: pageSize">
+						<div class="flip"> 
+						 	<div class="card" style="background-color:transparent;"data-ng-class="{'flipped':isFlipped}" data-ng-click="isFlipped=!isFlipped"> 
+		     					<div class="face front"> 
+			            			{{flash_card.front}}
+			            		</div> 
+			            		<div class="face back"> 
+			                		{{flash_card.back}}
+			            		</div> 
+		     				</div>
+		     			</div>
+		     		</div>	
+	     		</div>
+     		</div>
+     		<div data-ng-show="modes == 'backfirst'">
+				<div data-ng-init="getFlashCards()">
+					<div class="paginationclass" data-ng-repeat="flash_card in flash_cards | pagination: curPage * pageSize | limitTo: pageSize">
+						<div class="flip"> 
+						 	<div class="card" style="background-color:transparent;"data-ng-class="{'flipped':isFlipped}" data-ng-click="isFlipped=!isFlipped"> 
+		     					<div class="face front"> 
+			            			{{flash_card.back}}
+			            		</div> 
+			            		<div class="face back"> 
+			                		{{flash_card.front}}
+			            		</div> 
+		     				</div>
+		     			</div>
+		     		</div>	
+	     		</div>
+     		</div>
+     		<div data-ng-show="modes == 'randomfront'">
+				<div data-ng-init="getRandomCards()">
+					<div class="paginationclass" data-ng-repeat="random_flash_card in random_flash_cards | pagination: curPage * pageSize | limitTo: pageSize">
+						<div class="flip"> 
+						 	<div class="card" style="background-color:transparent;"data-ng-class="{'flipped':isFlipped}" data-ng-click="isFlipped=!isFlipped"> 
+		     					<div class="face front"> 
+			            			{{random_flash_card.front}}
+			            		</div> 
+			            		<div class="face back"> 
+			                		{{random_flash_card.back}}
+			            		</div> 
+		     				</div>
+		     			</div>
+		     		</div>	
+	     		</div>
+     		</div>
+     		<div data-ng-show="modes == 'randomback'">
+				<div data-ng-init="getRandomCards()">
+					<div class="paginationclass" data-ng-repeat="random_flash_card in random_flash_cards | pagination: curPage * pageSize | limitTo: pageSize">
+						<div class="flip"> 
+						 	<div class="card" style="background-color:transparent;"data-ng-class="{'flipped':isFlipped}" data-ng-click="isFlipped=!isFlipped"> 
+		     					<div class="face front"> 
+			            			{{random_flash_card.back}}
+			            		</div> 
+			            		<div class="face back"> 
+			                		{{random_flash_card.front}}
+			            		</div> 
+		     				</div>
+		     			</div>
+		     		</div>	
+	     		</div>
+     		</div>
+    		<div class="pagination pagination-centered" ng-show="flash_cards.length">
+				<ul class="pagination-controle pagination">
+ 					<li>
+  						<button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+ 							data-ng-click="curPage=curPage-1"> &lt; PREV</button>
+ 					</li>
+ 					<li>
+ 						<span>Page {{curPage + 1}} of {{flash_length}}</span>
+ 					</li>
+ 					<li>
+					<button type="button" class="btn btn-primary"
+ 						data-ng-disabled="curPage >= flash_cards.length/pageSize - 1"
+ 							ng-click="curPage = curPage+1">NEXT &gt;</button>
+ 					</li>
+ 					
+				</ul>
+			</div>
+    </div>
 
-		<div class="col-sm-3 rightcolor">
-			<div class="tab-widget">
-				<h4><span class="glyphicon glyphicon-cog">Flashcard Tools</h4>
-				<div class="nav-tabs-default">
-					<div class="tab-content">
-						<div class="popular-post">
-							<h5 class="post-widget-heading"></h5>
-							<ul class="list-group">
-								<li class="list-group-item"><a href="#">Quize Mode <span class="glyphicon glyphicon-question-sign "></span></li></a>
-								<li class="list-group-item"><a href="#">Edit Card <span class="glyphicon glyphicon-edit "></span></li></a>
-								<li class="list-group-item"><a href="#">Shuffle <span class="glyphicon glyphicon-random "></span></li></a>
-								<li class="list-group-item"><a href="#">Extra Partice<span class="glyphicon glyphicon-star "></span></li></a>
-								<li class="list-group-item"><a href="#">Delete Card<span class="glyphicon glyphicon-trash"></span></li></a>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>    
+    
+			
 		</div>
-	</div>
-	</div>
-</body>
-</html>
+	
+<% } else {
+	response.sendRedirect("index.jsp");	
+}%>
+<%@ include file="portal-footer.html" %>
