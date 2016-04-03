@@ -34,7 +34,7 @@ public class DBconn {
 
 	try {
 		conn= DriverManager
-		.getConnection("jdbc:mysql://127.0.0.1:3306/soft401","root", "");
+		.getConnection("jdbc:mysql://127.0.0.1:3306/westudy","root", "");
 		conn.setAutoCommit(false); 
 
 	} catch (SQLException e) {
