@@ -2,6 +2,7 @@ var card = angular.module("CardSetControllers", []);
 card.controller('CardSetController', function ($scope, $http, $window, $location) {
 	$scope.modes = 'frontfirst';
 	$scope.q_links = [];
+	$scope.no_q_links = "";
 	$scope.AddSet = function() {
 		 var dataObj = {
 				title : $scope.title,
@@ -22,7 +23,6 @@ card.controller('CardSetController', function ($scope, $http, $window, $location
 		};
 		
 	$scope.getSets = function(user_id) {
-		console.log("HEyy");
 		$scope.count = 0;
 		var res =
 			$http({
@@ -183,6 +183,11 @@ $scope.getQuickLinks = function(user_id) {
 	var res = $http.post("GetQuickLinkServlet", dataObj);
 	res.success(function(data, status, headers, config) {	
 		$scope.q_links = data;
+		$scope.link_length = $scope.q_links.length
+		if ($scope.link_length == 0) {
+			$scope.no_q_links = "No Quick Links";
+		}
+		console.log($scope.q_links);
 	});
 	res.error(function(data, status, headers, config) {
 		alert( "failure message: " + JSON.stringify({data: data}));
@@ -199,7 +204,9 @@ $scope.removeQuickLink = function (index, user_id, link) {
 		$scope.remove_link_status = data;
 		console.log($scope.remove_link_status);
 		if ($scope.remove_link_status == "Success") {
+			console.log(index);
 			$scope.q_links.splice(index, 1);
+			
 		}
 	});
 	res.error(function(data, status, headers, config) {

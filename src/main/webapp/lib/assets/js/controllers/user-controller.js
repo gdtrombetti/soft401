@@ -1,11 +1,9 @@
-var app = angular.module('MyApp', []);
-app.controller('UserController', function ($scope, $http, $window, $location) {
+angular.module('MyApp', []).
+	controller('UserController', function ($scope, $http, $window, $location) {
 $scope.AddUser = function(user) {
 	if(!user.$valid) {
 		return;
 	}
-	console.log("controller");
-
     var dataObj = {
 		name : user.name,
 		email : user.email,
@@ -23,6 +21,29 @@ $scope.AddUser = function(user) {
 		alert( "failure message: " + JSON.stringify({data: data}));
 	});
  }
+$scope.editUser = function() {
+	console.log("HEY");
+	var edit_information = {};
+	if (typeof $scope.name != 'undefined') {
+		 edit_information.name = $scope.name;
+	}
+	if (typeof $scope.email != 'undefined') {
+		 edit_information.email = $scope.email;
+	}
+	if (typeof $scope.password != 'undefined') {
+		 edit_information.password = $scope.email;
+	}
+	if (typeof $scope.affiliaton != 'undefined') {
+		 edit_information.affiliation = $scope.affiliation;
+	}
+	if (typeof $scope.email != 'undefined') {
+		 edit_information.favorite_subject = $scope.favorite_subject;
+	}
+	if (typeof $scope.type != 'undefined') {
+		 edit_information.type = $scope.type;
+	}
+	console.log(edit_information + "YOOO");
+}
 $scope.SignIn = function(user, $window) {
 	$scope.signInStatus = "";
 	$scope.signInMessage = "";
