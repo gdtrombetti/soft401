@@ -23,7 +23,16 @@
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
          import="UserData.User"
+         
 %>
+<%
+    response.setHeader("Cache-Control","no-store,must-revalidate"); 
+    response.setHeader("Pragma","no-cache"); 
+    response.setDateHeader ("Expires", -1); 
+    new java.util.Date();
+    User user2 = (User)(session.getAttribute("currentSessionUser"));
+    	
+    %>
 	<div id="home-page-portal">
 	<nav id="mainNavigation" class="navbar navbar-dafault main-navigation" role="navigation">
                 <div class="container">
@@ -39,7 +48,10 @@
                         
                         <!-- navbar logo -->
                         <div class="navbar-brand">
-                            <span class="sr-only">Student Assistant Tool</span>    
+                            <span class="sr-only">WeStudy</span>
+                            <a href="index.jsp">
+                                <img src="lib/assets/img/logo2.png" class="img-responsive center-block" alt="logo">
+                            </a>  
                         </div>
                         <!-- navbar logo -->
 
@@ -49,17 +61,28 @@
                     <div class="collapse navbar-collapse" id="main-nav-collapse">
                         <ul class="nav navbar-nav navbar-right text-uppercase">
                             <li>
-                                <a href="portal-index.jsp"><span>home</span></a>
+                            <%
+                            System.out.print (user2.getType());
+                            
+                            if(user2.getType().equals("1"))
+    							{
+                            %>
+                           		<a href="portal-basic.jsp"> Home
+                            <% } else if (user2.getType().equals("2")) {
+                            %>
+                            	<a href="portal-admin.jsp"> Home
+                            <%	
+                            } else {
+                            %>
+                            	<a href="portal-admin.jsp">
+                            <% 
+                            }
+                            %>
+                            </a>
                             </li>
-                             
-                             <%@ taglib prefix="c" 
-           						uri="http://java.sun.com/jsp/jstl/core" %>
-                              
-                            </li>
+
                             <li>
-                            	
-                                	<a href="SignOutUserServlet">Sign Out</a>
-                                
+                                <a href="SignOutUserServlet">Sign Out</a>
                             </li>  
                         </ul>
                     </div><!-- nav links -->

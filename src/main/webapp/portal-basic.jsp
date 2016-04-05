@@ -13,43 +13,43 @@
     {
    %>
 <%@ include file="portal-header.jsp" %>
-
-<div id="flavor">
+<p>&nbsp;</p>
+<header id="header">
 <% 
 if(currUser.getFavorite_topic().equals("CS")) {
 	%>
 	<script>
-	document.getElementById("flavor").style.backgroundImage = "url('https://images6.alphacoders.com/426/426414.jpg')";
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/CsBG.png')";
 	</script>
 	<%
 }else if(currUser.getFavorite_topic().equals("Math")) {
 	%>
 	<script>
-	document.getElementById("flavor").style.backgroundImage = "url('https://images2.alphacoders.com/969/96952.jpg')";
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/MathBG.png')";
 	</script>
 	<%
 }else if(currUser.getFavorite_topic().equals("Business")) {
 	%>
 	<script>
-	document.getElementById("flavor").style.backgroundImage = "url('http://thumbs.dreamstime.com/z/blue-business-background-7938257.jpg')";
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/BusinessBG.png')";
 	</script>
 	<%
 }else if(currUser.getFavorite_topic().equals("Biology")) {
 	%>
 	<script>
-	document.getElementById("flavor").style.backgroundImage = "url('http://il1.picdn.net/shutterstock/videos/2805538/thumb/8.jpg?i10c=img.resize(height:160)')";
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/BiologyBG.png')";
 	</script>
 	<%
 }else if(currUser.getFavorite_topic().equals("Art")) {
 	%>
 	<script>
-	document.getFavoriteById("flavor").style.backgroundImage = "url('http://www.webdesignhot.com/wp-content/uploads/2011/05/Abstract-Design-Vector-Art-Background.jpg')";
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/ArtBG.png')";
 	</script>
 	<%
 }else {
 	%>
 	<script>
-	getFavoriteById("flavor").style.backgroundImage = "none";
+	getElementById("header").style.backgroundImage = "none";
 	</script>
 	<%
 }
@@ -102,7 +102,7 @@ if(currUser.getFavorite_topic().equals("CS")) {
 </div>
 		
 </div>
-</div>
+</header>
 <%}
 else{
 	response.sendRedirect("index.jsp");

@@ -13,36 +13,36 @@
     {
 	%>
 	<%@ include file="portal-header.jsp" %>
+	
     <body ng-app="CardSetControllers" data-ng-controller="CardSetController">
-		<div class="container">
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
 		<div class ="row">
 			<div class="col-md-3">
 				<%@ include file="portal-left-sidebar.jsp" %>
 			</div>
 
-			<div class="col-md-6">
+			<div class="col-md-9">
 				<form name="addCard" novalidate role="form" class="css-form" >
         			<table id="card-content" class="">
                 		<thead>
                     		<tr>
-                    			<div class="row">
-                    				<div class="col-md-2">
-                        				<th colspan="0">
-                            			<h3>Front</h3>
+                    				<th colspan="0">
+                            			<h3>FRONT</h3>
                             				<div class="form-group">
-    											<textarea id="text" cols="40" rows="5" my-maxlength="5" data-ng-model="front"></textarea>
+    											<textarea id="text" cols="50" rows="5" my-maxlength="5" data-ng-model="front"></textarea>
     										</div>
-                         				</div>
-                        			<div class="col-md-4">
+                         			</th>	
+                        			
 										<th colspan="0">
-                            				<h3>Back</h3> 
+                            				<h3>BACK</h3> 
 												<div class="form-group">
-			 										<textarea id="text" cols="40" rows="5" my-maxlength="5" data-ng-model="back">
+			 										<textarea id="text" cols="50" rows="5" my-maxlength="5" data-ng-model="back">
 			 										</textarea>
 			 									</div>
 										</th>
-									</div>
-								</div>
+									
+								
 							</tr>
 						</thead>					       
 					</table>
@@ -54,50 +54,51 @@
 						for (var i = 0; i < sURLVariables.length; i++) {
 							var sParameterName = sURLVariables[i].split('=');
 							if (sParameterName[0] == sParam) {
-						return sParameterName[1];
+								return sParameterName[1];
+							}
+						}
 					}
-				}
-			}
-			</script>	
+					</script>	
 					<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
-						<button data-ng-click="addFlashCard()" class="btn btn-white-ish-lol">Add Card</button>
+						
 	                	<div data-ng-if="flash_card_status != undefined">
 	                		<h2>{{flash_card_status}}</h2>
 	                	</div>
 	                	</form>
-	                	<div class="col-md-12">
+	                	
 							<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
 							<div data-ng-init="getFlashCards()">
-      							<div class="col-md-6">
+							<div class="col-md-8">
+							<button data-ng-click="addFlashCard()" class="btn btn-block" style="background-color: #65c8e5; color: #000000">Add Card</button>
+							</div>
+						    <p>&nbsp;</p>
+						    <p>&nbsp;</p>
+      							<div class="col-md-4">
+      							
       								<h4>FRONT</h4>
+      								<div ng-repeat="flash_card in flash_cards">
+  									
+  										<div class="card card-block" style="background-color:#FFFFF; border-color: #65c8e5; border-width: 2px; height: 100px; width: 350px; padding: 75px;">
+											<p align="center" class="card-text">{{flash_card.front}}</p>
+  										</div>	
+  									
       							</div>
-      							<div class="col-md-6">
+      							</div>
+      							<div class="col-md-4">
       								<h4>BACK</h4>
+      									<div ng-repeat="flash_card in flash_cards">
+  										<div class="card card-block" style="background-color:#FFFFF; border-color: #65c8e5; border-width: 2px; height: 100px; width: 350px; padding: 75px;">
+											<p align="center" class="card-text">{{flash_card.back}}</p>
+  										</div>	
+  									</div>
       							</div>
-      							<div ng-repeat="flash_card in flash_cards">
-  									<div class="col-md-6">
-  										<div class="card card-block" style="background-color:#FFFFF; border-color: #0275d8; border-width: 1px;">
-											<p class="card-text">{{flash_card.front}}</p>
-  										</div>	
-  									</div>
-  									<div class="col-md-6">
-  										<div class="card card-block" style="background-color:#FFFFF; border-color: #0275d8; border-width: 1px;">
-											<p class="card-text">{{flash_card.back}}</p>
-  										</div>	
-  									</div>
-  								</div>
   							</div>
-						</div>
 					</div>
       			</div>
-			</div>
-		<div>
-	</div>
+		
 
-	<div class="row">
 	
-	</div>
-</div>
+
 
 <% } else {
 	response.sendRedirect("index.jsp");	

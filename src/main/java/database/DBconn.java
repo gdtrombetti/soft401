@@ -172,53 +172,140 @@ public class DBconn {
 		}
 		return null;
 		}
-
-	public void addQuickLink(String user_id, String link, String title) {
+	public String addQuickLink(String user_id, String link, String title) {
 		// TODO Auto-generated method stub
 		ResultSet rset = null;
+		boolean exists = true;
 		java.sql.PreparedStatement stmt = null;
+		exists = checkQuickLink(user_id, link);
+		if (exists) {
+			return "QuickLink already exists";
+		} else {
+			
 		String sql = "INSERT INTO quick_link (user_id, link, title)"
 		        + " values (?, ?, ?)"; 
-					try {
-						stmt = conn.prepareStatement(sql);
-						stmt.setString(1, user_id);
-						stmt.setString(2, link);
-						stmt.setString(3, title);
-						
-						stmt.executeUpdate();
-						stmt.close();
-						conn.commit();
-					} catch (SQLException e) {
-						e.printStackTrace();
-						try{stmt.close();}
-						catch(SQLException ex){}
-						
-						try{conn.rollback();}
-						catch(SQLException ex){}
-					}
+			try {
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, user_id);
+				stmt.setString(2, link);
+				stmt.setString(3, title);
+				
+				stmt.executeUpdate();
+				stmt.close();
+				conn.commit();
+				return "QuickLink Added!";
+			} catch (SQLException e) {
+				e.printStackTrace();
+				try{stmt.close();}
+				catch(SQLException ex){}
+				
+				try{conn.rollback();}
+				catch(SQLException ex){}
 			}
-
-	public void removeQuickLink(String user_id, String title) {
-		// TODO Auto-generated method stub
+		}
+		return "Failed Q-Link";
+	}
+	public Boolean checkQuickLink (String user_id, String link) {
+		ResultSet rset = null;
+		String findSet = "SELECT * FROM quick_link WHERE link = ? AND user_id = ?";
 		java.sql.PreparedStatement stmt = null;
-		String sql = "DELETE FROM quick_link WHERE user_id = ? and title = ?"; 
-					try {
-						stmt = conn.prepareStatement(sql);
-						stmt.setString(1, user_id);
-						stmt.setString(2, title);
-						stmt.executeUpdate();
-						stmt.close();
-						conn.commit();
-					} catch (SQLException e) {
-						e.printStackTrace();
-						try{stmt.close();}
-						catch(SQLException ex){}
-						
-						try{conn.rollback();}
-						catch(SQLException ex){}
-					}
+		try {
+			stmt = conn.prepareStatement(findSet);
+			stmt.setString(1, link);
+			stmt.setString(2, user_id);
+			rset = stmt.executeQuery();			
+			
+			if (rset.isBeforeFirst()) {
+				stmt.close();
+				conn.commit();
+				return true;
+			} else {
+				stmt.close();
+				conn.commit();
+				return false;
 			}
-
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return true;
+	}
+	@SuppressWarnings("null")
+	public String removeQuickLink(String user_id, String link) {
+		// TODO Auto-generated method stub
+		System.out.print(user_id);
+		java.sql.PreparedStatement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String sql = "DELETE FROM quick_link WHERE user_id = ? and link = ?"; 
+			try {
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, user_id);
+				stmt.setString(2, link);
+				count = stmt.executeUpdate();
+				
+				if (count > 0) {
+					stmt.close();
+					conn.commit();
+					return "Success";
+				} else {
+					return "Fail";
+				}			
+			} catch (SQLException e) {
+				e.printStackTrace();
+				try{stmt.close();}
+				catch(SQLException ex){}
+				
+				try{conn.rollback();}
+				catch(SQLException ex){}
+			}
+			return "Fail";
+			}
+	public List<String> getQuickLinks(String user_id) {
+		JSONArray jsonArray = new JSONArray();
+		ResultSet rset = null;
+		System.out.print(user_id);
+		String find_quick_link = "SELECT * FROM quick_link WHERE user_id = ?";
+		java.sql.PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(find_quick_link);
+			stmt.setString(1, user_id);
+			rset = stmt.executeQuery();
+			if (rset != null) {
+				ResultSetMetaData rsmd = rset.getMetaData();
+				int numColumns = rsmd.getColumnCount();
+				while (rset.next()) {
+					JSONObject obj = new JSONObject();
+					for(int i = 1; i < numColumns + 1; i++){
+						String col_name = rsmd.getColumnName(i);
+						Object columnValue = rset.getObject(i);
+		                obj.put(col_name, columnValue);
+					}
+			        jsonArray.add(obj);
+				}
+				stmt.close();
+				conn.commit();
+				return jsonArray;
+			} else {
+				stmt.close();
+				conn.commit();
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return null;
+		
+	}
 
 	public void addUser(String name, String email, String password, String affiliation, String favorite_subject,
 			Long type, String date) {
@@ -282,7 +369,6 @@ public class DBconn {
 			try{conn.rollback();}
 			catch(SQLException ex){}
 		}
-		System.out.print(exists);
 		if (exists == false) {
 		
 		java.sql.PreparedStatement stmt2 = null;
@@ -412,10 +498,8 @@ public class DBconn {
 		return "Success";
 			}
 
-	public List<String> getFlashCards(Long user_id, String title) {
-		
-		ResultSet rset2 = null;
-		
+	public List<String> getFlashCards(Long user_id, String title) {	
+		ResultSet rset2 = null;	
 		String findSet = "SELECT * FROM card_set WHERE title = ? and user_id = ?";
 		java.sql.PreparedStatement stmt = null;
 		long card_set_id = 0;
@@ -523,6 +607,38 @@ public class DBconn {
 			catch(SQLException ex){}
 		}
 		return 0;
+	}
+
+	public String removeCardSetFromDatabase(String user_id, String title) {
+		ResultSet rset = null;
+		System.out.print(user_id);
+		String getCards = "DELETE FROM card_set WHERE user_id = ? AND title = ?";
+		java.sql.PreparedStatement stmt = null;
+		int count = 0;
+		try {
+			stmt = conn.prepareStatement(getCards);
+			stmt.setString(1, user_id);
+			stmt.setString(2, title);
+
+			count = stmt.executeUpdate();
+			if (count > 0) {
+				stmt.close();
+				conn.commit();
+				return "Success";
+			} else {
+				stmt.close();
+				conn.commit();
+				return "Fail";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return "Fail";
 	}
 }
  

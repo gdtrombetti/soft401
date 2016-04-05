@@ -6,7 +6,7 @@
 	         <div class="popular-post">
 	           <h5 class="post-widget-heading"></h5>
 	           <ul class="list-group">
-		           	<li class="list-group-item"><a href="#">Edit Information</li></a>
+		           	<li class="list-group-item"><a href="edit-information.jsp">Edit Information</li></a>
 		           	<li class="list-group-item"><a href="#">Settings</li></a>
 		           	<li class="list-group-item"><a href="#">Help</li></a>
 	           </ul>
