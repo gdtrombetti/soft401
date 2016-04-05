@@ -1,5 +1,5 @@
-var cal = angular.module('CalendarControllers', []);
-cal.controller('CalendarController', function ($scope, $http, $window) {
+angular.module('MyApp', [])
+	.controller('CalendarController', function ($scope, $http, $window) {
 	$scope.day = "";
 	$scope.month = "";
 	$scope.year = "";

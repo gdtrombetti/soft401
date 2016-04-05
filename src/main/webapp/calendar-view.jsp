@@ -14,7 +14,7 @@
    %>
 <%@ include file="script-link-tags.html" %>
 
-<body id="calendar-body" ng-app="CalendarControllers" >
+<body id="calendar-body" data-ng-app="MyApp">
 	
 	<div class="divcalendar">
 	<div id="calendaroverallcontrols">
@@ -53,5 +53,6 @@
 			</form>
 		</div>
 	</div>
+</div>
 <%@ include file="portal-footer.html" %>
 <% } %>
