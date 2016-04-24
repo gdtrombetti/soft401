@@ -14,7 +14,7 @@
 	%>
 	<%@ include file="portal-header.jsp" %>
 	
-    <body ng-app="CardSetControllers" data-ng-controller="CardSetController">
+    <body ng-app="MyApp" data-ng-controller="CardSetController">
 		<p>&nbsp;</p>
 		<p>&nbsp;</p>
 		<div class ="row">
@@ -30,14 +30,14 @@
                     				<th colspan="0">
                             			<h3>FRONT</h3>
                             				<div class="form-group">
-    											<textarea id="text" cols="50" rows="5" my-maxlength="5" data-ng-model="front"></textarea>
+    											<textarea id="text" cols="50" rows="5" my-maxlength="5" data-ng-model="front" required></textarea>
     										</div>
                          			</th>	
                         			
 										<th colspan="0">
                             				<h3>BACK</h3> 
 												<div class="form-group">
-			 										<textarea id="text" cols="50" rows="5" my-maxlength="5" data-ng-model="back">
+			 										<textarea id="text" cols="50" rows="5" my-maxlength="5" data-ng-model="back" required>
 			 										</textarea>
 			 									</div>
 										</th>
@@ -69,14 +69,14 @@
 							<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
 							<div data-ng-init="getFlashCards()">
 							<div class="col-md-8">
-							<button data-ng-click="addFlashCard()" class="btn btn-block" style="background-color: #65c8e5; color: #000000">Add Card</button>
+							<button data-ng-click="addFlashCard(); getFlashCards();" class="btn btn-block" style="background-color: #65c8e5; color: #000000">Add Card</button>
 							</div>
 						    <p>&nbsp;</p>
 						    <p>&nbsp;</p>
       							<div class="col-md-4">
       							
       								<h4>FRONT</h4>
-      								<div ng-repeat="flash_card in flash_cards">
+      								<div data-ng-repeat="flash_card in flash_cards">
   									
   										<div class="card card-block" style="background-color:#FFFFF; border-color: #65c8e5; border-width: 2px; height: 100px; width: 350px; padding: 75px;">
 											<p align="center" class="card-text">{{flash_card.front}}</p>
@@ -86,7 +86,7 @@
       							</div>
       							<div class="col-md-4">
       								<h4>BACK</h4>
-      									<div ng-repeat="flash_card in flash_cards">
+      									<div data-ng-repeat="flash_card in flash_cards">
   										<div class="card card-block" style="background-color:#FFFFF; border-color: #65c8e5; border-width: 2px; height: 100px; width: 350px; padding: 75px;">
 											<p align="center" class="card-text">{{flash_card.back}}</p>
   										</div>	

@@ -25,7 +25,6 @@
 					<a class="btn pricing-btn" href="#">Today</a> 
 					<a class="btn pricing-btn" href="#">Prev</a>
 					<a class="btn pricing-btn" href="#">Next</a>
-					<h3>February 2016</h3>
 					<%@ include file="calendar-view.jsp"%>
 				</div>
 			</div>

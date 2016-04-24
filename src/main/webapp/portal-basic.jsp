@@ -55,24 +55,30 @@ if(currUser.getFavorite_topic().equals("CS")) {
 }
 	%>
 
-
+<body data-ng-app="MyApp">
 <div class ="row">
 	<div class="col-md-3">
 		<%@ include file="portal-left-sidebar.jsp" %>
 	</div>
+<div data-ng-controller="CardSetController">
 	<div class="col-md-6">
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h1 class="panel-title">Welcome, User</h1>
+						<h1 class="panel-title">Recent Sets</h1>
 					</div>		
 				<div class="panel-body">
 					<div class="portal-container">
-						<h2 class="panel-title">Recent Sets</h2>
+						<div data-ng-init="getSets(<%= currUser.getId() %>)">
+							<div data-ng-repeat="set in sets| limitTo : 3">
+						  		<h2 class="panel-title">{{set.title}}</h2>
+							</div>
+						</div>
 					</div>
 				</div>
-				</div>
-			</div>	
+			
+		</div>
+	</div>	
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">

@@ -33,7 +33,7 @@
     User user2 = (User)(session.getAttribute("currentSessionUser"));
     	
     %>
-	<div id="home-page-portal">
+<div id="home-page-portal">
 	<nav id="mainNavigation" class="navbar navbar-dafault main-navigation" role="navigation">
                 <div class="container">
                     
@@ -61,8 +61,11 @@
                     <div class="collapse navbar-collapse" id="main-nav-collapse">
                         <ul class="nav navbar-nav navbar-right text-uppercase">
                             <li>
+                            	<a>Welcome, <%= user2.getFull_name() %></a>
+                            </li>
+                            <li>
                             <%
-                            System.out.print (user2.getType());
+                           
                             
                             if(user2.getType().equals("1"))
     							{
@@ -90,6 +93,4 @@
             </nav>
            </div>
       	</div>
- 
       </head>
-    <body>

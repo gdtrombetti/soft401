@@ -12,17 +12,22 @@ $scope.AddUser = function(user) {
 		favorite_subject : user.favorite_subject,
 		type : $scope.type
 	};
+    
 	var res = $http.post('AddUserServlet', dataObj);
 		res.success(function(data, status, headers, config) {	
-		console.log(status);
 		console.log(data);
+			if ( data === 'false' ) {
+			$scope.exists_message = "Email is already in use!";
+		} else {
+			$scope.exists_message = "Successfully signed up!";
+		}
 	});
 	res.error(function(data, status, headers, config) {
 		alert( "failure message: " + JSON.stringify({data: data}));
 	});
  }
 $scope.editUser = function() {
-	console.log("HEY");
+	
 	var edit_information = {};
 	if (typeof $scope.name != 'undefined') {
 		 edit_information.name = $scope.name;
@@ -57,8 +62,6 @@ $scope.SignIn = function(user, $window) {
 	var res = $http.post('SignInUserServlet', user);
 		res.success(function(data, status, headers, config) {
 			$scope.data = data;
-			console.log($scope.data);
-			
 			$scope.signInStatus = status;
 			if ( $scope.data == "false") {
 				$scope.signInMessage = "Invalid Credentials";

@@ -3,32 +3,62 @@
          pageEncoding="windows-1256"
          import="UserData.User"
    %>
+   <% 
+    response.setHeader("Cache-Control","no-store,must-revalidate"); 
+    response.setHeader("Pragma","no-cache"); 
+    response.setDateHeader ("Expires", -1); 
+    new java.util.Date();
+    User currUser = (User)(session.getAttribute("currentSessionUser"));
+    if(session.getAttribute("currentSessionUser") != null)
+    {
+   %>
 <%@ include file="portal-header.jsp" %>
+<p>&nbsp;</p>
+<header id="header">
+<% 
+if(currUser.getFavorite_topic().equals("CS")) {
+	%>
+	<script>
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/CsBG.png')";
+	</script>
+	<%
+}else if(currUser.getFavorite_topic().equals("Math")) {
+	%>
+	<script>
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/MathBG.png')";
+	</script>
+	<%
+}else if(currUser.getFavorite_topic().equals("Business")) {
+	%>
+	<script>
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/BusinessBG.png')";
+	</script>
+	<%
+}else if(currUser.getFavorite_topic().equals("Biology")) {
+	%>
+	<script>
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/BiologyBG.png')";
+	</script>
+	<%
+}else if(currUser.getFavorite_topic().equals("Art")) {
+	%>
+	<script>
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/ArtBG.png')";
+	</script>
+	<%
+}else {
+	%>
+	<script>
+	getElementById("header").style.backgroundImage = "none";
+	</script>
+	<%
+}
+	%>
+
+
 <div class ="row">
 	<div class="col-md-3">
-		<%@ include file="script-link-tags.html" %>
-		<div class="tab-widget">
-   			<h4>Portal Navigation</h4>
-   			<div class="nav-tabs-default">
-       			<div class="tab-content">
-	         		<div class="popular-post">
-	           		<h5 class="post-widget-heading">Quick Links</h5>
-	           			<ul class="list-group">
-		           		<li class="list-group-item"><a href="#">Computer Science Flash Cards</li></a>
-		           		<li class="list-group-item"><a href="#"> Hospitality Flash Cards</li></a>
-		           		<li class="list-group-item"><a href="#"> Sign-Out</li></a>
-	           			</ul>
-	           		<h5 class="post-widget-heading">Tools</h5>
-	           			<ul class="list-group">
-		           		<li class="list-group-item"><a href="#">Flash Card Sets</li></a>
-		           		<li class="list-group-item"><a href="#">Calendar</li></a>
-		           		<li class="list-group-item"><a href="#">Create Group</li></a>
-		           		<li class="list-group-item"><a href="#">Manage Groups</li></a>
-	           			</ul>
-	         		</div>
-	     		</div>
-       		</div>
-		</div>
+		<%@ include file="portal-left-sidebar.jsp" %>
 	</div>
 	<div class="col-md-6">
 			<div class="col-md-6">
@@ -55,11 +85,7 @@
 					</div>
 				</div>
 			</div>
-	
-	
-	
-	
-</div>
+	</div>
 		<div class="col-md-3">
 			<%@ include file="portal-right-sidebar.jsp" %>
 		</div>
@@ -74,18 +100,12 @@
 		
 	</div>
 </div>
-<div class="col-md-6">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<div class="panel-title">Group Statistics</div>
-		</div>
-		<div class="panel-body">
-			<div class="portal-container">This is where the stats of administered groups
-			will be located</div>		
-		</div>
-	</div>
-</div>
-
 		
 </div>
-
+</header>
+<%}
+else{
+	response.sendRedirect("index.jsp");
+}%>
+<%@ include file="portal-footer.html" %>
+	

@@ -12,7 +12,7 @@
     User user3 = (User)(session.getAttribute("currentSessionUser"));
     %>
 <%@ include file="script-link-tags.html" %>
- <div ng-app="CardSetControllers">
+<body  ng-app="MyApp">
  <div data-ng-controller="CardSetController">
 	<div class="tab-widget">
 	   <h4>Portal Navigation</h4>
@@ -43,4 +43,3 @@
 	       </div>
 	  </div>
 	</div>
-</div>

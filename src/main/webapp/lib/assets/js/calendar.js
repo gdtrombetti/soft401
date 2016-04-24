@@ -190,7 +190,7 @@ function show_event (d) {
 });
   dimmer = document.createElement("div");
   dimmer.style.width =  window.innerWidth + 'px';
-  dimmer.style.height = window.innerHeight + 'px';
+  dimmer.style.height = 1200 + 'px';
   dimmer.className = 'dimmer';
   dimmer.onclick = function(){
       document.body.removeChild(this);   
