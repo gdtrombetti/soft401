@@ -64,13 +64,12 @@ public class AddUserServlet extends HttpServlet {
 		    String favorite_subject= (String) joUser.get("favorite_subject");
 		    Long type = (Long) joUser.get("type");
 
-		    System.out.print(joUser);
-		    dbconn.addUser(name, email, password, affiliation, favorite_subject, type, date);
+		    Boolean success = dbconn.addUser(name, email, password, affiliation, favorite_subject, type, date);
 
 		    response.setContentType("text/html");
 		    PrintWriter out = response.getWriter();
 		    
-		    out.print("Success");
+		    out.print(success);
 		    out.flush();
 		    out.close();
 	}

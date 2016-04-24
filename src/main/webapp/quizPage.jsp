@@ -1,109 +1,85 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Quize page</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 500}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f2f2f2;
-      height: 500px;
-    }
-		.rightcolor{
-			background-color:#e6e6e6;
-			height:500px;
-
+<%@ page language="java" 
+         contentType="text/html; charset=windows-1256"
+         pageEncoding="windows-1256"
+         import="UserData.User"
+   %>
+   <% 
+    response.setHeader("Cache-Control","no-store,must-revalidate"); 
+    response.setHeader("Pragma","no-cache"); 
+    response.setDateHeader ("Expires", -1); 
+    new java.util.Date();
+    User currUser = (User)(session.getAttribute("currentSessionUser"));
+    if(session.getAttribute("currentSessionUser") != null)
+    {
+    	
+    %>
+<%@ include file="portal-header.jsp" %>
+<body data-ng-app="MyApp">
+	<div data-ng-controller="CardSetController">
+	<div class="col-md-3">
+	<%@ include file="portal-left-sidebar.jsp" %>
+	  	</div>
+	<script>
+		function getURLParameter(sParam) {
+			var sPageURL = window.location.search.substring(1);
+			var sURLVariables = sPageURL.split('&');
+		
+			for (var i = 0; i < sURLVariables.length; i++) {
+				var sParameterName = sURLVariables[i].split('=');
+				if (sParameterName[0] == sParam) {
+					return sParameterName[1];
+				}
+			}
 		}
-	
-	/* set light blue background color*/
-	header{
-		background-color:#bfbfbf;
-		padding:15px;
-	}
-
-
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: auto;
-      }
-      .row.content {height: auto;} 
-    }
-	.mybox {
-    background-color: white;
-    width: 500px;
-	height:300px;
-    padding: 25px;
-    border: 1px solid grey;
-    margin: auto;
-}
-  </style>
-</head>
-<body>
-	<header class="container-fluid">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>                        
-		</button>
-		<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-education"></a>
-
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#"><span class="glyphicon glyphicon-home "></span>Home</a></li>
-				<li><a href="#">Projects</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-phone-alt "></span>Contact</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user "></span>Welcome User</a></li>
-				<li><a href="#">Signout</a></li>
-			</ul>
-		</div>
- 	</header>
-	<div class="container-fluid">
-	<div class="row content">
-		<div class="col-sm-9 sidenav text-center">
-			<h3>Quize Mode</h3>
-			<br>
-			<div class="mybox">some text</div>
-      		<h4> 1 of 12</h4>
-			<ul class="pager">
-				<li><a href="#"><span class="glyphicon glyphicon-step-backward "></span>Previous</a></li>
-				<li><a href="#">Flip<span class="glyphicon glyphicon-repeat "></span></a></li>
-				<li><a href="#">Next<span class="glyphicon glyphicon-step-forward "></span></a></li>
-			</ul>
-		</div>
-
-		<div class="col-sm-3 rightcolor">
-			<div class="tab-widget">
-				<h4><span class="glyphicon glyphicon-cog">Flashcard Tools</h4>
-				<div class="nav-tabs-default">
-					<div class="tab-content">
-						<div class="popular-post">
-							<h5 class="post-widget-heading"></h5>
-							<ul class="list-group">
-								<li class="list-group-item"><a href="#">Quize Mode <span class="glyphicon glyphicon-question-sign "></span></li></a>
-								<li class="list-group-item"><a href="#">Edit Card <span class="glyphicon glyphicon-edit "></span></li></a>
-								<li class="list-group-item"><a href="#">Shuffle <span class="glyphicon glyphicon-random "></span></li></a>
-								<li class="list-group-item"><a href="#">Extra Partice<span class="glyphicon glyphicon-star "></span></li></a>
-								<li class="list-group-item"><a href="#">Delete Card<span class="glyphicon glyphicon-trash"></span></li></a>
-							</ul>
-						</div>
+		function getUrl() {
+			return window.location.href;
+		}
+		</script>
+		<div class="col-md-6 sidenav text-center">
+		<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
+			  <select ng-model="modes">
+	          	<option value="frontfirst">Multiple Choice Front</option>
+	          	<option value="backfirst">Multiple Choice Back</option>
+	   		 </select>
+	    	<div data-ng-show="modes == 'frontfirst'">
+					<div data-ng-init="getQuizFlashCards();">
+						<div class="paginationclass" data-ng-repeat="flash_card in flash_cards | pagination: curPage * pageSize | limitTo: pageSize">
+							<div class="flip"> 
+							 	<div class="card" style="background-color:transparent;"> 
+			     					<div class="face front"> 
+				            			{{flash_card.front}}
+				            		</div>
+			     				</div>
+			     			</div>
+			     			<div data-ng-if="flash_card.back == choice">
+			     				<div data-ng-init="correctAnswers()"></div>
+			     			</div>    			
+			     		</div>			     		
+		     		</div>
+		     		<div data-ng-repeat="potential_answer in potential_answers">
+			     		<input type="radio" data-ng-model="$parent.choice" name="choice" data-ng-value="potential_answer" required /> {{potential_answer}}
+			     	</div>	
+	     		</div>
+	     		
+	     		<div class="pagination pagination-centered" ng-show="flash_cards.length">
+					<ul class="pagination-controle pagination">
+	 				
+	 					<li>
+	 						<span>Question {{curPage + 1}} of {{flash_length}}</span>
+	 					</li>
+	 					<li>
+	 					
+						<button type="button" class="btn btn-primary"
+	 						data-ng-disabled="!choice"
+	 							ng-click="curPage = curPage+1; getFlashCardPotentialAnswers(flash_cards, curPage); choice = ''">SUBMIT QUESTION &gt;</button>
+	 					</li>
+					</ul>
+					<div data-ng-if="curPage == flash_cards.length">
+						<div data-ng-init="resultPageRedirect('<%= currUser.getId() %>', card_set_id)"></div>
 					</div>
 				</div>
-			</div>    
 		</div>
-	</div>
-	</div>
-</body>
-</html>
+		</div>
+<% } else {
+	response.sendRedirect("index.jsp");	
+}%>

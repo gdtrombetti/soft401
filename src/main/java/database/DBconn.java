@@ -307,29 +307,34 @@ public class DBconn {
 		
 	}
 
-	public void addUser(String name, String email, String password, String affiliation, String favorite_subject,
+	public Boolean addUser(String name, String email, String password, String affiliation, String favorite_subject,
 			Long type, String date) {
 	
 		 java.sql.PreparedStatement stmt = null;
          String sql;
-         
+         Boolean exists = false;
 	          try {
-	        
-	              sql = "INSERT INTO users (full_name, email, password, affiliation, favorite_topic, type, signup_date) VALUES "
-	                  + "(?, ?, ?, ?, ?, ?, ?)";
-	              stmt = conn.prepareStatement(sql);
-	              stmt.setString(1, name);
-	              stmt.setString(2, email);
-	              stmt.setString(3, password);
-	              stmt.setString(4, affiliation);
-	              stmt.setString(5, favorite_subject);
-	              stmt.setLong(6, type);
-	              stmt.setString(7, date);
-	           
-	              stmt.executeUpdate();
-	              stmt.close();
-	              conn.commit();
-	              
+	        	  exists = findUserByEmail(email);
+	        	  
+	        	  if (!exists) {
+		        	  sql = "INSERT INTO users (full_name, email, password, affiliation, favorite_topic, type, signup_date) VALUES "
+		                  + "(?, ?, ?, ?, ?, ?, ?)";
+		              stmt = conn.prepareStatement(sql);
+		              stmt.setString(1, name);
+		              stmt.setString(2, email);
+		              stmt.setString(3, password);
+		              stmt.setString(4, affiliation);
+		              stmt.setString(5, favorite_subject);
+		              stmt.setLong(6, type);
+		              stmt.setString(7, date);
+		           
+		              stmt.executeUpdate();
+		              stmt.close();
+		              conn.commit();
+		              return true;
+	        	  } else {
+	        		 return false; 
+	        	  }
 	          } catch (Exception e) {
 	              System.out.printf("%s%n", e.getMessage());
 	              try {stmt.close();}
@@ -337,6 +342,7 @@ public class DBconn {
 	              try {conn.rollback();}
 	              catch (Exception err) {}
 	          }
+			return false;
 		
 	}
 
@@ -499,10 +505,14 @@ public class DBconn {
 			}
 
 	public List<String> getFlashCards(Long user_id, String title) {	
-		ResultSet rset2 = null;	
-		String findSet = "SELECT * FROM card_set WHERE title = ? and user_id = ?";
+		ResultSet rset2 = null;
+		int shared = 0;
+		System.out.print(user_id);
+		String findSet = "SELECT * FROM card_set WHERE title = ? AND user_id = ?";
 		java.sql.PreparedStatement stmt = null;
 		long card_set_id = 0;
+		long initial_card_set_id = 0;
+		int from_user = 0;
 		try {
 			stmt = conn.prepareStatement(findSet);
 			stmt.setString(1, title);
@@ -514,7 +524,34 @@ public class DBconn {
 				int numColumns = rsmd.getColumnCount();
 				ArrayList jsonArray;
 				while (rset2.next()) {
-					card_set_id = rset2.getLong("id");
+					initial_card_set_id = rset2.getLong("id");
+					shared = rset2.getInt("shared");
+					from_user = rset2.getInt("from_user");
+					
+				}
+				if (shared == 0)  {
+					String findShareSet = "SELECT * FROM card_set WHERE title = ? AND user_id = ?";
+					java.sql.PreparedStatement stmt2 = null;
+					
+					try {
+						stmt = conn.prepareStatement(findShareSet);
+						stmt.setString(1, title);
+						stmt.setLong(2, from_user);
+						
+						rset2 = stmt.executeQuery();
+						if (rset2 != null) {
+							while (rset2.next()) {
+								card_set_id = rset2.getLong("id");
+							}
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+						try{stmt.close();}
+						catch(SQLException ex){}
+						
+						try{conn.rollback();}
+						catch(SQLException ex){}
+					}
 				}
 				stmt.close();
 				conn.commit();			
@@ -532,27 +569,32 @@ public class DBconn {
 			catch(SQLException ex){}
 		}
 		JSONArray jsonArray = new JSONArray();
-		ResultSet rset = null;
-		String getCards = "SELECT * FROM flash_cards WHERE user_id = ? AND title = ? AND card_set_id = ?";
+		ResultSet rset3 = null;
+		String getCards = "SELECT * FROM flash_cards WHERE user_id = ? AND title = ? AND card_set_id = ? OR card_set_id = ? ORDER BY id DESC";
 		java.sql.PreparedStatement stmt3 = null;
 		try {
-			stmt3= conn.prepareStatement(getCards);
+			stmt3 = conn.prepareStatement(getCards);
 			stmt3.setLong(1, user_id);
 			stmt3.setString(2, title);
 			stmt3.setLong(3, card_set_id);
-			rset = stmt3.executeQuery();
-			if (rset != null) {
-				ResultSetMetaData rsmd = rset.getMetaData();
+			stmt3.setLong(4, initial_card_set_id );
+			rset3 = stmt3.executeQuery();
+			if (rset3 != null) {
+				ResultSetMetaData rsmd = rset3.getMetaData();
 				int numColumns = rsmd.getColumnCount();
-				while (rset.next()) {
+				
+				while (rset3.next()) {
+					
 					JSONObject obj = new JSONObject();
 					for(int i = 1; i < numColumns + 1; i++){
 						String col_name = rsmd.getColumnName(i);
-						Object columnValue = rset.getObject(i);
-		                obj.put(col_name, columnValue);
+						Object columnValue = rset3.getObject(i);
+		                
+						obj.put(col_name, columnValue);
 					}
 			        jsonArray.add(obj);
 				}
+				
 				stmt.close();
 				conn.commit();
 				return jsonArray;
@@ -639,6 +681,132 @@ public class DBconn {
 			catch(SQLException ex){}
 		}
 		return "Fail";
+	}
+
+	public String addStatistics(String title, String correct, String total, String user_id, Long percent) {
+
+		java.sql.PreparedStatement stmt2 = null;
+		String sql = "INSERT INTO statistics (user_id, title, correct, total, percent)"
+		        + " values (?, ?, ?, ?, ?)"; 
+					try {
+						stmt2 = conn.prepareStatement(sql);
+						stmt2.setString(1, user_id);
+						stmt2.setString(2, title);
+						stmt2.setString(3, correct);
+						stmt2.setString(4, total);
+						stmt2.setDouble(5, percent);
+						
+						stmt2.executeUpdate();
+					
+						stmt2.close();
+						conn.commit();
+						return "Success";
+					} catch (SQLException e) {
+						e.printStackTrace();
+						try{stmt2.close();}
+						catch(SQLException ex){}
+						
+						try{conn.rollback();}
+						catch(SQLException ex){}
+					}
+		return null;
+	}
+
+	public Boolean shareSet(String title, String card_set_id, String email, String user_id) {
+		ResultSet rset = null;
+		long share_user_id = 0;
+		int shared = 0;
+		String findUser = "SELECT * FROM users WHERE email = ?";
+		java.sql.PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(findUser);
+			stmt.setString(1, email);
+			rset = stmt.executeQuery();			
+			
+			if (rset.isBeforeFirst()) {
+				while(rset.next()) {
+					share_user_id = rset.getLong("user_id");
+				}
+				String sql = "INSERT INTO card_set (user_id, title, shared, from_user)"
+				        + " values (?, ?, ?, ?)"; 
+							try {
+								stmt = conn.prepareStatement(sql);
+								stmt.setLong(1, share_user_id);
+								stmt.setString(2, title);
+								stmt.setInt(3, shared);
+								stmt.setInt(4, Integer.parseInt(user_id));
+								
+								
+								stmt.executeUpdate();
+				
+					
+								
+							
+							} catch (SQLException e) {
+							e.printStackTrace();
+								try{stmt.close();}
+									catch(SQLException ex){}
+				
+									try{conn.rollback();}
+									catch(SQLException ex){}
+							}
+						String shareCards = "SELECT * FROM flash_cards WHERE card_set_id = ?  AND user_id = ?";
+						java.sql.PreparedStatement stmt2 = null;
+						ResultSet rset2 = null;
+						int int_user_id = Integer.parseInt(user_id);
+						stmt2 = conn.prepareStatement(shareCards);
+						stmt2.setString(1, card_set_id);
+						stmt2.setInt(2, int_user_id);
+						rset2 = stmt2.executeQuery();
+						
+						if (rset2 != null) {
+							while(rset2.next()) {
+							
+							String t_title = rset2.getString("title");
+							String t_front = rset2.getString("front");
+							String t_subject = rset2.getString("subject");
+							String t_back = rset2.getString("back");
+							int t_card_set = rset2.getInt("card_set_id");
+							String sql2 = "INSERT INTO flash_cards (user_id, title, front, subject, back, card_set_id)"
+							        + " values (?, ?, ?, ?, ?, ?)"; 
+										try {
+											stmt = conn.prepareStatement(sql2);
+											stmt.setLong(1, share_user_id);
+											stmt.setString(2, t_title);
+											stmt.setString(3, t_front);
+											stmt.setString(4, t_subject);
+											stmt.setString(5, t_back);
+											stmt.setInt(6, t_card_set);
+											
+											stmt.executeUpdate();
+										
+										} catch (SQLException e) {
+										e.printStackTrace();
+											try{stmt.close();}
+												catch(SQLException ex){}
+							
+												try{conn.rollback();}
+												catch(SQLException ex){}
+										}
+							} 	stmt.close();
+							conn.commit();
+							return true;}
+						}else {
+						stmt.close();
+						conn.commit();
+						return false;
+					}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+	
+	// TODO Auto-generated method stub
+		return false;
 	}
 }
  

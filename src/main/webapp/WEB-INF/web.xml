@@ -97,6 +97,18 @@
   	<description></description>
   	<servlet-class>servlets.GetQuickLinkServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AddStatisticsServlet</servlet-name>
+  	<display-name>AddStatisticsServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.AddStatisticsServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ShareFlashCardServlet</servlet-name>
+  	<display-name>ShareFlashCardServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlets.ShareFlashCardServlet</servlet-class>
+  </servlet>
 
   
   
@@ -157,6 +169,14 @@
   <servlet-mapping>
   	<servlet-name>GetQuickLinkServlet</servlet-name>
   	<url-pattern>/GetQuickLinkServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddStatisticsServlet</servlet-name>
+  	<url-pattern>/AddStatisticsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ShareFlashCardServlet</servlet-name>
+  	<url-pattern>/ShareFlashCardServlet</url-pattern>
   </servlet-mapping>
 
   </web-app>

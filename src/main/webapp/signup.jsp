@@ -66,8 +66,12 @@
 											<option>Art</option>
 										</select>
 	 					 			</div>
+	 					 			<label><a src="termsOfService.jsp">Terms Of Service</a> <input type="checkbox" data-ng-model="terms" required></label>
+	 					 			<br/>
+	 					 			<br/>
 	 					 			<input type="hidden" name="type" data-ng-init="type=1;" data-ng-value="type"/>
  	 					 				<button data-ng-click="AddUser(user)"  class="btn btn-black">Submit</button>
+ 	 									<label>{{exists_message}}</label>
 	                   				</div> 
                		 		</form>
                			</div>
@@ -109,8 +113,12 @@
 											<option>Art</option>
 										</select>
 	 					 			</div>
+	 					 			<label><a src="termsOfService.jsp">Terms Of Service</a> <input type="checkbox" data-ng-model="terms" required></label>
+	 					 			<br/>
+	 					 			<br/>
 	 					 			<input type="hidden" name="type" data-ng-init="type=2;" data-ng-value="type"/>
  	 					 				<button data-ng-click="AddUser(user)"  class="btn btn-black">Submit</button>
+ 	 									{{exists_message}}
 	                   				</div> 
                		 		</form>
                			</div>
