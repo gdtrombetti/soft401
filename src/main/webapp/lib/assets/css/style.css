@@ -108,6 +108,11 @@ html {
     
 }
 
+.btn-slategray2 {
+	background-color: #000;
+	color: #fff;
+}
+
 .btn-white {
 	background-color: #fff;
 	color: #000;
@@ -126,6 +131,11 @@ html {
 .btn-slategray:hover {
 	background-color: #65c8e5;
 	color: #fff;
+}
+
+.btn-slategray2:hover {
+	background-color: #65c8e5;
+	color: #000;
 }
 
 .btn-white:hover {
