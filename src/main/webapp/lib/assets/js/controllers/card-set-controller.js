@@ -1,5 +1,5 @@
 var card = angular.module("MyApp", []).
-	controller('CardSetController', function ($scope, $http, $window, $location) {
+	controller('CardSetController', function ($scope, $http, $window, $location, $interval) {
 	$scope.modes = 'frontfirst';
 	$scope.q_links = [];
 	$scope.no_q_links = "";
@@ -7,9 +7,16 @@ var card = angular.module("MyApp", []).
 	$scope.userChoice = {};
 	$scope.potential_answers = [];
 	$scope.correct_answers = 0;
-	
+	$scope.runningClock = function($timeout) {
+		$scope.clock = { time: "", interval: 1000 };
+	    
+	    $interval(function () { 
+	    $scope.clock.time = Date.now();}, 
+	    $scope.clock.interval);
+	}
 	$scope.AddSet = function() {
-		 var dataObj = {
+		$scope.set_message = ""; 
+		var dataObj = {
 				title : $scope.title,
 				subject : $scope.subject,
 				description : $scope.description,
@@ -17,6 +24,12 @@ var card = angular.module("MyApp", []).
 			};
 		var res = $http.post('AddCardSetServlet', dataObj);
 		res.success(function(data, status, headers, config) {			
+			console.log(data);
+			if (data == 'true') {
+				$scope.set_message = "Succesfully Added Card Set!";
+			} else {
+				$scope.set_message = "Card Set Already Exists! (Use a New Title)";
+			}
 			$scope.title = "";
 			$scope.description = "";
 			$scope.subject = "";
@@ -118,8 +131,8 @@ $scope.addFlashCard = function() {
 		};
 		var res = $http.post('GetFlashCardServlet', dataObj);
 		res.success(function(data, status, headers, config) {	
-			console.log(data);
 			$scope.flash_cards = data;
+			$scope.flash_length = data.length;
 		});
 		res.error(function(data, status, headers, config) {
 			alert( "failure message: " + JSON.stringify({data: data}));
@@ -150,7 +163,7 @@ $scope.addFlashCard = function() {
 		$scope.curPage = 0;
 		$scope.pageSize = 1;
 		$scope.title = getURLParameter('set');
-		//console.log($scope.current);
+		
 		var dataObj = {	
 				user_id : $scope.userId,
 				title : $scope.title		
@@ -172,7 +185,7 @@ $scope.addFlashCard = function() {
 			$scope.potential_answers_pool = potential;
 			$scope.potential_answers.length = 0;
 			for (i = $scope.potential_answers_pool.length; i; i -= 1) {
-				//$scope.potential_answers.correct = $scope.potential_answers_pool[i];
+				
 				j = Math.floor(Math.random() * i);
 				x = $scope.potential_answers_pool[i - 1];
 				$scope.potential_answers_pool[i - 1] = $scope.potential_answers_pool[j];

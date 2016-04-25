@@ -61,17 +61,18 @@ public class DBconn {
 				isopen = false;
 				conn = null;
 	}
-	public Boolean findUserByEmail(String email) {
+	public Boolean findUserByEmail(String email, String password) {
 			ResultSet rset = null;
-			String findUser = "SELECT * FROM users WHERE email = ?";
+			String findUser = "SELECT * FROM users WHERE email = ? AND password = ?";
 			java.sql.PreparedStatement stmt = null;
 			try {
 				stmt = conn.prepareStatement(findUser);
 				stmt.setString(1, email);
+				stmt.setString(2, password);
 				rset = stmt.executeQuery();			
 				
 				if (rset.isBeforeFirst()) {
-					
+					System.out.print("HEY");
 					stmt.close();
 					conn.commit();
 					return true;
@@ -90,7 +91,35 @@ public class DBconn {
 			}
 			return false;
 		}
-
+	public Boolean checkUser(String email) {
+		ResultSet rset = null;
+		String findUser = "SELECT * FROM users WHERE email = ?";
+		java.sql.PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(findUser);
+			stmt.setString(1, email);
+			rset = stmt.executeQuery();			
+			
+			if (rset.isBeforeFirst()) {
+				System.out.print("HEY");
+				stmt.close();
+				conn.commit();
+				return true;
+			} else {
+				stmt.close();
+				conn.commit();
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try{stmt.close();}
+			catch(SQLException ex){}
+			
+			try{conn.rollback();}
+			catch(SQLException ex){}
+		}
+		return false;
+	}
 	public ArrayList<String> getUser(String email) {
 		ResultSet rset = null;
 		String json = null;
@@ -314,7 +343,7 @@ public class DBconn {
          String sql;
          Boolean exists = false;
 	          try {
-	        	  exists = findUserByEmail(email);
+	        	  exists = checkUser(email);
 	        	  
 	        	  if (!exists) {
 		        	  sql = "INSERT INTO users (full_name, email, password, affiliation, favorite_topic, type, signup_date) VALUES "
@@ -346,7 +375,7 @@ public class DBconn {
 		
 	}
 
-	public String addCardSet(String title, String subject, String description, Long user_id) {
+	public boolean addCardSet(String title, String subject, String description, Long user_id) {
 		boolean exists = false;
 		ResultSet rset = null;
 		String findSet = "SELECT * FROM card_set WHERE title = ? AND user_id = ?";
@@ -361,7 +390,7 @@ public class DBconn {
 				stmt.close();
 				conn.commit();
 				exists = true;
-				return "Set Already Exists";
+				return false;
 			} else {
 				stmt.close();
 				conn.commit();
@@ -390,6 +419,7 @@ public class DBconn {
 						stmt2.executeUpdate();
 						stmt2.close();
 						conn.commit();
+						return true;
 					} catch (SQLException e) {
 						e.printStackTrace();
 						try{stmt2.close();}
@@ -399,13 +429,13 @@ public class DBconn {
 						catch(SQLException ex){}
 					}
 				}
-		return "Success";
+		return false;
 			}
 
 	public List<String> getSets(String user_id) {
 		JSONArray jsonArray = new JSONArray();
 		ResultSet rset = null;
-		String findUser = "SELECT * FROM card_set WHERE user_id = ?";
+		String findUser = "SELECT * FROM card_set WHERE user_id = ? ORDER BY id DESC";
 		java.sql.PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(findUser);
@@ -506,8 +536,7 @@ public class DBconn {
 
 	public List<String> getFlashCards(Long user_id, String title) {	
 		ResultSet rset2 = null;
-		int shared = 0;
-		System.out.print(user_id);
+		int shared = 1;
 		String findSet = "SELECT * FROM card_set WHERE title = ? AND user_id = ?";
 		java.sql.PreparedStatement stmt = null;
 		long card_set_id = 0;
@@ -527,9 +556,10 @@ public class DBconn {
 					initial_card_set_id = rset2.getLong("id");
 					shared = rset2.getInt("shared");
 					from_user = rset2.getInt("from_user");
-					
 				}
+				
 				if (shared == 0)  {
+					
 					String findShareSet = "SELECT * FROM card_set WHERE title = ? AND user_id = ?";
 					java.sql.PreparedStatement stmt2 = null;
 					

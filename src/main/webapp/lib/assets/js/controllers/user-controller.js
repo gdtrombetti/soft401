@@ -49,15 +49,14 @@ $scope.editUser = function() {
 	}
 	console.log(edit_information + "YOOO");
 }
-$scope.SignIn = function(user, $window) {
+$scope.signIn = function(user, $window) {
 	$scope.signInStatus = "";
 	$scope.signInMessage = "";
-	if(!user.$valid) {
-		return;
-	}
+	console.log("HEY")
+	
 	var user = {
-		email : user.email,
-		password : user.password,
+		email : $scope.user.email,
+		password : $scope.user.password,
 	};
 	var res = $http.post('SignInUserServlet', user);
 		res.success(function(data, status, headers, config) {
