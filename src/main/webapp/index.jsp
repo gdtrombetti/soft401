@@ -134,7 +134,7 @@
                  <div class="feature-content text-center">
                      <div class="feature-icon-box">
                          <div class="feature-icon center-block">
-                             <i class="fa fa-star"></i>
+                             <i class="fa fa-line-chart"></i>
                          </div>
                      </div> <!--  end of /.feature-icon-box  -->
                      <div class="feature-info">
