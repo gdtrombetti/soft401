@@ -17,7 +17,11 @@
     %>
 <%@ include file="portal-header.jsp" %>
 
-<body ng-app="CardSetControllers">
+<p>&nbsp;</p>
+<div class="col-md-3">
+	<%@ include file="portal-left-sidebar.jsp" %>
+</div>
+<body ng-app="MyApp">
 <div data-ng-controller="CardSetController">
 		<div class="col-sm-9 sidenav text-center">
 			<script>
@@ -37,6 +41,8 @@
 				}
 			</script>
 				<button data-ng-click='addToQuicklink("<%= currUser.getId() %>","Flash Card Study")'  type="submit"> 
+				<button title="Add to QuickLinks" data-ng-click='addToQuicklink("<%= currUser.getId() %>","Flash Card Study"); getQuickLinks("<%= currUser.getId() %>")'  type="submit"> 
+
 					<img src="lib/assets/img/logo3.png" height="35">
 				</button>
 				<h3>{{q_link_status}}</h3>
@@ -127,7 +133,7 @@
  					<li>
 					<button type="button" class="btn btn-primary"
  						data-ng-disabled="curPage >= flash_cards.length/pageSize - 1"
- 							ng-click="curPage = curPage+1">NEXT &gt;</button>
+ 							data-ng-click="curPage = curPage+1">NEXT &gt;</button>
  					</li>
  					
 				</ul>

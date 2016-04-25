@@ -83,10 +83,13 @@ if(currUser.getFavorite_topic().equals("CS")) {
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="panel-title">Date/Time</div>
+						
 					</div>
 					<div class="panel-body">
 						<div class="portal-container">
-							<h2 class="panel-title">Notifications</h2>
+							<div data-ng-init="runningClock()">
+								<h2 class="panel-title">{{ clock.time | date:'medium'}}</h2>
+							</div>
 						</div>
 					</div>
 				</div>

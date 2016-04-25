@@ -3,6 +3,8 @@ package servlets;
 import java.io.BufferedReader;
 import database.DBconn;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ public class AddCardSetServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DBconn conn = new DBconn();
+		PrintWriter out = response.getWriter();
 		StringBuffer sb = new StringBuffer();
 	    try 
 	    {
@@ -51,7 +54,8 @@ public class AddCardSetServlet extends HttpServlet {
 	    String subject = (String) joUser.get("subject");
 	    String description = (String) joUser.get("description");
 	    Long user_id = (Long) joUser.get("user_id");
-	    conn.addCardSet(title, subject, description, user_id);
+	    Boolean card_set = conn.addCardSet(title, subject, description, user_id);
+	    out.print(card_set);
 	}
 
 }

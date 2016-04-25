@@ -9,9 +9,6 @@
 	<!-- stylesheets -->
 	<link rel="stylesheet" href="lib/assets/css/style.css" type="text/css">
 	<link rel="stylesheet" href="lib/assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="lib/assets/css/animate.css">
-	<link rel="stylesheet" href="lib/assets/css/owl.carousel.css">
-	<link rel="stylesheet" href="lib/assets/css/owl.theme.css">
 	
 	<!-- scripts -->
 	<link rel="stylesheet" href="lib/assets/css/bootstrap.min.css">
@@ -65,7 +62,7 @@
                									<div class="form-group">
 													<input type="password" data-ng-model="user.password" class="form-control" placeholder="Password" id="password" required>
 												</div>
-												<button data-ng-click="SignIn(user)" class="btn btn-white-ish-lol">Sign In</button>
+												<button data-ng-click="signIn()" class="btn btn-white-ish-lol">Sign In</button>
 												<div data-ng-if="signInStatus == 200">
   							  						<h4>{{signInMessage}}</h4>
  							 					</div>

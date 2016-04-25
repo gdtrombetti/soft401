@@ -40,6 +40,7 @@
     </div>
     <input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
 			<button data-ng-click="AddSet()" class="btn btn-white-ish-lol">Create</button>
+			<h2>{{set_message}}</h2>
 		</form>
 	</div>
 	<div class="col-md-3"></div>

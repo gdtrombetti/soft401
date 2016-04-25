@@ -67,8 +67,8 @@ public class SignInUserServlet extends HttpServlet {
 	    } catch (ParseException e) { e.printStackTrace(); }
 
 	    String email = (String) joUser.get("email");
-
-	    inDatabase = dbconn.findUserByEmail(email);
+	    String password = (String) joUser.get("password");
+	    inDatabase = dbconn.findUserByEmail(email, password);
 
 	    if (inDatabase) {
 	    	HttpSession session = request.getSession(true);
