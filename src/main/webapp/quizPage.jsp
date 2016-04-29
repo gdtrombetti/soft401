@@ -14,6 +14,13 @@
     	
     %>
 <%@ include file="portal-header.jsp" %>
+<p>&nbsp;</p>
+
+<header id="header">
+	<script>
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/QuizBG.png')";
+	</script>
+	
 <body data-ng-app="MyApp">
 	<div data-ng-controller="CardSetController">
 	<div class="col-md-3">
@@ -35,7 +42,9 @@
 			return window.location.href;
 		}
 		</script>
+		
 		<div class="col-md-6 sidenav text-center">
+		<h2>Quiz Mode</h2>
 		<input type="hidden" name="" data-ng-init="userId=<%= currUser.getId() %>" data-ng-value="type"/>
 			  <select ng-model="modes">
 	          	<option value="frontfirst">Multiple Choice Front</option>
@@ -56,22 +65,27 @@
 			     			</div>    			
 			     		</div>			     		
 		     		</div>
+		     		<div class="col-md-12">
 		     		<div data-ng-repeat="potential_answer in potential_answers">
 			     		<input type="radio" data-ng-model="$parent.choice" name="choice" data-ng-value="potential_answer" required /> {{potential_answer}}
-			     	</div>	
+			     	</div>
+			     	<p>&nbsp;</p>	
+			     	</div>
 	     		</div>
 	     		
 	     		<div class="pagination pagination-centered" ng-show="flash_cards.length">
 					<ul class="pagination-controle pagination">
 	 				
 	 					<li>
-	 						<span>Question {{curPage + 1}} of {{flash_length}}</span>
+	 						<span class="col-md-12">Question {{curPage + 1}} of {{flash_length}}</span>
 	 					</li>
+	 					<p>&nbsp;</p>
 	 					<li>
-	 					
-						<button type="button" class="btn btn-primary"
+	 					<div class="col-md-12">
+						<button type="button" style="color:#FFF;" class="btn btn-slategray2"
 	 						data-ng-disabled="!choice"
 	 							ng-click="curPage = curPage+1; getFlashCardPotentialAnswers(flash_cards, curPage); choice = ''">SUBMIT QUESTION &gt;</button>
+	 					</div>
 	 					</li>
 					</ul>
 					<div data-ng-if="curPage == flash_cards.length">

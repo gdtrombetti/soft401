@@ -17,10 +17,14 @@
 <%@ include file="portal-header.jsp" %>
 
 <p>&nbsp;</p>
+<header id="header">
+	<script>
+	document.getElementById("header").style.backgroundImage = "url('lib/assets/img/StudyBG.png')";
+	</script>
 <div class="col-md-3">
 	<%@ include file="portal-left-sidebar.jsp" %>
 </div>
-<body ng-app="MyApp">
+
 <div data-ng-controller="CardSetController">
 		<div class="col-sm-9 sidenav text-center">
 			<script>
