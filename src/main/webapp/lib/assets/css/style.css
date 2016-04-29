@@ -209,6 +209,16 @@ html {
     cursor: pointer;
 }
 
+.anchor {
+	color: #65c8e5;
+}
+
+.anchor:hover {
+	color: #d3eff8;
+	cursor: pointer;
+	text-decoration: none;
+}
+
 /* =-=--=-=-=-=-=-==-=-=-=-  2.2 Navbar   =-=-=-=-==-=-==-====-==-=- */
 
 #mainNavigation {
@@ -1699,7 +1709,7 @@ only screen and (max-device-width : 550px){
     border: 1px solid transparent;
     border-radius: 4px;
 	background-color: #656566;
-	color: #969595;
+	color: #b1b1b1;
 }
 .portal-container {
 	padding: 20px;
